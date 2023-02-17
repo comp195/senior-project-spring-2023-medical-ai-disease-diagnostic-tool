@@ -1,4 +1,4 @@
-# senior-project-spring-2023-medical-ai-disease-diagnostic-tool
+# senior-project-spring-2023-medical-ai-disease-diagnostic-tool #
 
 # Medical AI for Disease Diagnostic Tool
 
@@ -6,9 +6,9 @@
 
 #                   BY
 
-## Korie Westbrook: k_westbrook@u.pacific.edu
-## Mansoor Haidari: m_haidari@u.pacific.edu
-## Kelvin Luk: k_luk2@u.pacific.edu
+### Korie Westbrook: k_westbrook@u.pacific.edu
+### Mansoor Haidari: m_haidari@u.pacific.edu
+### Kelvin Luk: k_luk2@u.pacific.edu
 
 ## Overview
  
