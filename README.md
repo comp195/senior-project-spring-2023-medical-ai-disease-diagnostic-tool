@@ -2,7 +2,7 @@
 
 # Medical AI for Disease Diagnostic Tool
 
-##        System Design Docuemnt 
+##        System Design Document 
 
 #                   BY
 
