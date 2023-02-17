@@ -1,4 +1,4 @@
-# senior-project-spring-2023-medical-ai-disease-diagnostic-tool #
+# Senior-Project-Spring-2023-Medical-AI-Disease-Diagnostic-Tool #
 
 # Medical AI for Disease Diagnostic Tool
 
@@ -61,4 +61,4 @@ For any questions or feedback, please email us at [ to be add at later time ].
 
 
 
-                                                        # University of the Pacific Stockton, CA Studenst
+                                         # University of the Pacific Stockton, CA Studenst
