@@ -25,7 +25,11 @@ This project is a Medical AI tool that is designed to assist healthcare professi
 ## Build With 
 
 ## Web
-
+- PHP 
+- CSS
+- Javascripting
+- BootStrap
+- API Socket
 ## Requirements
 
 * Microsoft Azure account
