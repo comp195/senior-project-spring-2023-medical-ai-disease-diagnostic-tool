@@ -56,7 +56,14 @@ the repository, make your changes, and submit a pull request.
 This project is licensed under the University of the Pacific School of Engineering and Computer Science.
 
 ## Contact
-For any questions or feedback, please email us at [ to be add at later time ].
+For any questions or feedback, please email us at [ 
+    -Korie Westbrook: k_westbrook@u.pacific.edu
+    -Mansoor Haidari: m_haidari@u.pacific.edu
+    -Kelvin Luk: k_luk2@u.pacific.edu
+    --------------------------------------------
+    Contact of our Overseeing Project Advisor
+    -Prof. Canniff: m_canniff@u.pacific.edu
+].
 
 ## Specail Notes 
 
