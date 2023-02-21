@@ -25,11 +25,11 @@ This project is a Medical AI tool that is designed to assist healthcare professi
 ## Build With 
 
 ## Web
-- PHP 
-- CSS
-- Javascripting
-- BootStrap
-- API Socket
+- PHP for the frame work of the website.
+- CSS for styling the GUI and Display.
+- Javascripting, Json, and XML to fetch , used data to store and transmit data, and to represent data
+- BootStrap framework for developing responsive forms, buttons, navigation, and other interface components.
+- API Socket to collection of socket calls that enables to perform the following primary communication functions between application programs:
 ## Requirements
 
 * Microsoft Azure account
