@@ -86,6 +86,11 @@ For any questions or feedback, please email us at [
 
 ## Specail Notes 
 
+# Weekly Meeting Schedule 
+
+* Every Thursday Starts: 6:00 PM (Meeting will via discord)
+* Every Sunday Starts: 1:00 PM (zoom Link: https://pacific.zoom.us/j/93113615764)
+
 ## Acknowledgments
 
 
