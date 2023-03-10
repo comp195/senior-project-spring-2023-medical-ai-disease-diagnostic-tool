@@ -37,3 +37,46 @@ with open('cardio_training10Set.csv', 'r') as f:
     print("   id_, age, gender, height, weight, ap_hi, ap_lo, cholesterol, gluc, smoke, alco, active, cardio")
 for row in data[:5]:
     print(row)
+
+
+
+# Read File Io---------------------------------------------------------------------------------------------
+# Mansoor Haidari
+import pandas as pd
+
+# Open the CSV file for reading
+with open('heart.csv', 'r') as f:
+
+    # Read lines from file
+    lines = f.readlines()
+
+    # Remove newline characters from lines
+    lines = [line.strip() for line in lines]
+
+    # Split lines into fields
+    fields = [line.split(';') for line in lines]
+
+# Create a pandas DataFrame from the fields
+df = pd.DataFrame(fields[1:], columns=fields[0])
+
+# Sort the DataFrame by a category
+sorted_df = df.sort_values(by='category')
+
+# Identify the high and low values for a specified column
+column_name = 'column_name'
+low_value = sorted_df[column_name].min()
+high_value = sorted_df[column_name].max()
+
+# Identify the number of 'normal' and 'ST' values in a different column
+count_normal = sorted_df[sorted_df['other_column'] == 'normal'].shape[0]
+count_st = sorted_df[sorted_df['other_column'] == 'ST'].shape[0]
+
+# Loop through every value in the sorted DataFrame and print it
+for index, row in sorted_df.iterrows():
+    for col in sorted_df.columns:
+        print(row[col])
+
+print('Lowest', column_name, ':', low_value)
+print('Highest', column_name, ':', high_value)
+print('Number of normal:', count_normal)
+print('Number of ST:', count_st)
