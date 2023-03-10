@@ -43,6 +43,9 @@ This project is a Medical AI tool that is designed to assist healthcare professi
 
 ## Build With 
 
+* Python
+* TensorFlow
+
 ## Web
 - PHP for the frame work of the website.
 - CSS for styling the GUI and Display.
