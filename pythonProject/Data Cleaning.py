@@ -1,23 +1,11 @@
 import pandas as pd
 
-# read the excel file into a pandas dataframe
-df = pd.read_excel('cardio_train.csv')
+# Read the CSV file into a pandas DataFrame
+df = pd.read_csv('heart.csv')
 
-# remove duplicates
-df.drop_duplicates(inplace=True)
+# Sort the DataFrame by the 'age' column
+sorted_df = df.sort_values(by='age')
 
-# remove empty rows and columns
-df.dropna(how='all', inplace=True)
-df.dropna(axis=1, how='all', inplace=True)
+# Display the first few rows of the sorted DataFrame
+print(sorted_df.head())
 
-# convert string columns to lowercase
-df = df.apply(lambda x: x.str.lower() if x.dtype == "object" else x)
-
-# remove leading/trailing spaces from string columns
-df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
-
-# replace any NaN values with a default value (e.g. "N/A")
-df.fillna("N/A", inplace=True)
-
-# write the cleaned data to a new excel file
-df.to_excel('cleaned_data.xlsx', index=False)
