@@ -18,7 +18,7 @@ if __name__ == '__main__':
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
 # Read File Io---------------------------------------------------------------------------------------------
-with open('cardio_training10Set.csv', 'r') as f:
+with open('../MedicalAI/cardio_training10Set.csv', 'r') as f:
     # skip the header line
     next(f)
     data = []

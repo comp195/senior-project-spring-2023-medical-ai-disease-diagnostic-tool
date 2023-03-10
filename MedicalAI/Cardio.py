@@ -18,7 +18,7 @@ if __name__ == '__main__':
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
 # Read File Io---------------------------------------------------------------------------------------------
-with open('cardio_training10Set.csv', 'r') as f:
+with open('../MedicalAI/Cardio_training10Set.csv', 'r') as f:
     # skip the header line
     next(f)
     data = []
@@ -33,7 +33,7 @@ with open('cardio_training10Set.csv', 'r') as f:
         # store the values in a nested list
         data.append([id_, age, gender, height, weight, ap_hi, ap_lo, cholesterol, gluc, smoke, alco, active, cardio])
 
-# print the first 5 rows of data
-    print("   id_, age, gender, height, weight, ap_hi, ap_lo, cholesterol, gluc, smoke, alco, active, cardio")
-for row in data[:5]:
+# print the first number of rows of data
+    print("   Age,Sex,ChestPainType,RestingBP,Cholesterol,FastingBS,RestingECG,MaxHR,ExerciseAngina,Oldpeak,ST_Slope,HeartDisease")
+for row in data[:10]:
     print(row)
