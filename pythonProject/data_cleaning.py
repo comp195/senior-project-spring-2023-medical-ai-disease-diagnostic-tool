@@ -1,6 +1,16 @@
 import pandas as pd
+import numpy as np
+import csv
+
 
 # Open the CSV file for reading
+
+d = pd.read_csv('heart.csv')
+print(d.values)
+
+d.loc[:,"Age"]
+print(d.loc[:,"Age"])
+
 with open('heart.csv', 'r') as f:
 
     # Read lines from file
@@ -13,19 +23,40 @@ with open('heart.csv', 'r') as f:
     fields = [line.split(';') for line in lines]
 
 # Create a pandas DataFrame from the fields
-df = pd.DataFrame(fields[1:], columns=fields[0])
+df = pd.read_csv('heart.csv')
+print(df)
 
 # Convert columns to numeric data types
-df['Age'] = pd.to_numeric(df['Age'])
-df['RestingBP'] = pd.to_numeric(df['RestingBP'])
-df['Cholesterol'] = pd.to_numeric(df['Cholesterol'])
-df['FastingBS'] = pd.to_numeric(df['FastingBS'])
-df['RestingECG'] = pd.to_numeric(df['RestingECG'])
-df['MaxHR'] = pd.to_numeric(df['MaxHR'])
-df['ExerciseAngina'] = pd.to_numeric(df['ExerciseAngina'])
-df['Oldpeak'] = pd.to_numeric(df['Oldpeak'])
-df['ST_Slope'] = pd.to_numeric(df['ST_Slope'])
-df['HeartDisease'] = pd.to_numeric(df['HeartDisease'])
+Age = df.loc[:,'Age']
+print(Age)
+
+RestingBP = df.loc[:,'RestingBP']
+print(RestingBP)
+
+Cholesterol = df.loc[:,'Cholesterol']
+print(Cholesterol)
+
+FastingBS = df.loc[:,'FastingBS']
+print(FastingBS)
+
+RestingECG = df.loc[:,'RestingECG']
+print(RestingECG)
+
+MaxHR= df.loc[:,'MaxHR']
+print(MaxHR)
+
+ExerciseAngina= df.loc[:,'ExerciseAngina']
+print(ExerciseAngina)
+
+Oldpeak = df.loc[:,'Oldpeak']
+print(Oldpeak)
+
+ST_Slope = df.loc[:,'ST_Slope']
+print(ST_Slope)
+
+HeartDisease = df.loc[:,'HeartDisease']
+print(HeartDisease)
+
 
 # Sort the DataFrame by the 'Age' column
 sorted_df = df.sort_values(by='Age')

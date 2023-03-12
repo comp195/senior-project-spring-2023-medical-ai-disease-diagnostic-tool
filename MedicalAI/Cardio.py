@@ -37,3 +37,4 @@ with open('heart_training10Set.csv', 'r') as f:
     print("Age\tSex\tChestPainType\tRestingBP\tCholesterol\tFastingBS\tRestingECG\tMaxHR\tExerciseAngina\tOldpeak\tST_Slope\tHeartDisease")
     for row in data[:10]:
         print('\t'.join([str(val) for val in row]))
+
