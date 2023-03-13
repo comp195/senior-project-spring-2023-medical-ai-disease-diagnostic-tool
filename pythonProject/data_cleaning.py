@@ -73,8 +73,11 @@ count_lvh = sorted_df['RestingECG'].value_counts()['LVH']
 
 
 
+
+
 print('Lowest Cholesterol:', low_value)
 print('Highest Cholesterol:', high_value)
 print('Number of normal:', count_normal)
 print('Number of ST:', count_st)
+
 

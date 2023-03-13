@@ -27,7 +27,7 @@ pandas.core.frame.DataFrame
 
 # dataset Shape
 dataset.shape
-(500, 10)
+(919, 10)
 
 # Print some columns
 dataset.head(15)
@@ -49,27 +49,27 @@ for i in range(len(info)):
     print(dataset.columns[i] + ":\t\t\t" + info[i])
 
     dataset["target"].describe()
-    dataset["target"].unique()
-    print(dataset.corr()["target"].abs().sort_values(ascending=False))
-    y = dataset["target"]
 
+    dataset["target"].unique()
+    array([1, 0])
+
+    print(dataset.corr()["target"].abs().sort_values(ascending=False))
+
+    y = dataset["target"]
     sns.countplot(y)
 
     target_temp = dataset.target.value_counts()
-
     print(target_temp)
+
     print("Percentage of patience without heart problems: " + str(round(target_temp[0] * 100 / 303, 2)))
     print("Percentage of patience with heart problems: " + str(round(target_temp[1] * 100 / 303, 2)))
 
-    # Alternatively,
-    # print("Percentage of patience with heart problems: "+str(y.where(y==1).count()*100/303))
-    # print("Percentage of patience with heart problems: "+str(y.where(y==0).count()*100/303))
 
-    # #Or,
-    # countNoDisease = len(df[df.target == 0])
-    # countHaveDisease = len(df[df.target == 1])
     dataset["sex"].unique()
+    array([1, 0])
+
     sns.barplot(dataset["sex"], y)
+
     dataset["cp"].unique()
     sns.barplot(dataset["cp"], y)
     dataset["fbs"].describe()
