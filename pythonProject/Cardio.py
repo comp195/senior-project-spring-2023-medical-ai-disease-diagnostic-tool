@@ -12,7 +12,7 @@ print(os.getcwd(), "\n")
 
 # load the dataset
 data = pd.read_csv('heart.csv', delimiter=',')
-print("Head:\n", data.head(), "\n") #display the first few rows of the DataFrame
+print("Head:\n", data.head(5), "\n") #display the first few rows of the DataFrame
 print("Shape:\n", data.shape, "\n") #returns the dimensions (rows, columns) of the DataFrame as a tuple
 print(data.info(), "\n") #provides information about the DataFrame
 print("Describe:\n", data.describe(), "\n") #provides descriptive statistics about each column in the DataFrame
