@@ -10,6 +10,7 @@ import os
 
 print(os.getcwd(), "\n")
 
+
 # load the dataset
 data = pd.read_csv('heart.csv', delimiter=',')
 print("Head:\n", data.head(5), "\n") #display the first few rows of the DataFrame
