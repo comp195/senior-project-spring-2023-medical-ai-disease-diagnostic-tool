@@ -2,28 +2,155 @@ print("Welcome to the Heart Disease Risk Assessment Tool.")
 print("Please answer the following questions to help us assess your risk.")
 
 # Get user input
-age = int(input("Enter your age: "))
-sex = input("Enter your sex (male/female): ")
-illness = input("Do you have an existing medical condition? (yes/no): ")
-exercise = input("Do you exercise regularly? (yes/no): ")
-cholesterol = int(input("What is your cholesterol level? "))
-chest_pain = input("Do you experience chest pain? (yes/no): ")
-blood_pressure = int(input("What is your blood pressure? "))
-marital_status = input("What is your marital status? (married/single): ")
-medical_history = input("Do you have a family history of heart disease? (yes/no): ")
-symptoms = input("Have you experienced any of the following symptoms? (shortness of breath when active, trouble breathing when sleeping): ")
+while True:
+    try:
+        age = int(input("Enter your age: "))
+        if age < 0 or age > 112:
+            print("Please enter a valid age between 0 and 112.")
+            continue
+        break
+    except ValueError:
+        print("Please enter a valid integer age.")
+
+while True:
+    sex = input("Enter your sex (male/female): ")
+    if sex.lower() not in ['male', 'female']:
+        print("Please enter either 'male' or 'female'.")
+        continue
+    break
+
+while True:
+    illness = input("Do you have an existing medical condition? (yes/no): ")
+    if illness.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    exercise = input("Do you exercise regularly? (yes/no): ")
+    if exercise.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    try:
+        cholesterol = int(input("What is your cholesterol level? "))
+        if cholesterol < 0:
+            print("Please enter a valid cholesterol level.")
+            continue
+        break
+    except ValueError:
+        print("Please enter a valid integer cholesterol level.")
+
+while True:
+    chest_pain = input("Do you experience chest pain? (yes/no): ")
+    if chest_pain.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    try:
+        blood_pressure = int(input("What is your blood pressure? "))
+        if blood_pressure < 0:
+            print("Please enter a valid blood pressure.")
+            continue
+        break
+    except ValueError:
+        print("Please enter a valid integer blood pressure.")
+
+while True:
+    marital_status = input("What is your marital status? (married/single): ")
+    if marital_status.lower() not in ['married', 'single']:
+        print("Please enter either 'married' or 'single'.")
+        continue
+    break
+
+while True:
+    medical_history = input("Do you have a family history of heart disease? (yes/no): ")
+    if medical_history.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    symptoms = input("Have you experienced any of the following symptoms? (shortness of breath when active, trouble breathing when sleeping): ")
+    if symptoms.lower() not in ['shortness of breath when active', 'trouble breathing when sleeping']:
+        print("Please enter either 'shortness of breath when active' or 'trouble breathing when sleeping'.")
+        continue
+    break
 
 # Additional medical history questions
-heart_attack = input("Have you ever had a heart attack or stroke? (yes/no): ")
-diabetes = input("Do you have diabetes? (yes/no): ")
-high_bp = input("Have you ever been diagnosed with high blood pressure? (yes/no): ")
-high_chol = input("Have you ever been diagnosed with high cholesterol? (yes/no): ")
-arrhythmia = input("Have you ever been diagnosed with a heart arrhythmia or irregular heartbeat? (yes/no): ")
-heart_valve = input("Have you ever been diagnosed with heart valve disease? (yes/no): ")
-cong_heart_defect = input("Have you ever been diagnosed with a congenital heart defect? (yes/no): ")
-PAD = input("Have you ever been diagnosed with peripheral artery disease (PAD)? (yes/no): ")
-blood_clot = input("Have you ever been diagnosed with a blood clotting disorder? (yes/no): ")
-sleep_apnea = input("Have you ever been diagnosed with sleep apnea or other breathing problems during sleep? (yes/no): ")
+while True:
+    heart_attack = input("Have you ever had a heart attack or stroke? (yes/no): ")
+    if heart_attack.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    diabetes = input("Do you have diabetes? (yes/no): ")
+    if diabetes.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    high_bp = input("Have you ever been diagnosed with high blood pressure? (yes/no): ")
+    if high_bp.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+    high_chol = input("Have you ever been diagnosed with high cholesterol? (yes/no): ")
+    if high_chol.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    arrhythmia = input("Have you ever been diagnosed with a heart arrhythmia or irregular heartbeat? (yes/no): ")
+    if arrhythmia.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    heart_valve = input("Have you ever been diagnosed with heart valve disease? (yes/no): ")
+    if heart_valve.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+  cong_heart_defect = input("Have you ever been diagnosed with a congenital heart defect? (yes/no): ")
+  if cong_heart_defect.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+  break
+
+while True:
+    PAD = input("Have you ever been diagnosed with peripheral artery disease (PAD)? (yes/no): ")
+    if PAD.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    blood_clot = input("Have you ever been diagnosed with a blood clotting disorder? (yes/no): ")
+    if blood_clot.lower() not in ['yes', 'no']:
+        print("Please enter either 'yes' or 'no'.")
+        continue
+    break
+
+while True:
+    sleep_apnea = input("Have you ever been diagnosed with sleep apnea or other breathing problems during sleep? (yes/no): ")
+    if sleep_apnea.lower() not in ['yes', 'no']:
+      print("Please enter either 'yes' or 'no'.")
+      continue
+    break
+
 
 # Analyze heart disease risk factors
 age_risk = "Moderate Risk" if (sex == "male" and age > 45) or (sex == "female" and age > 55) else "Low Risk"
