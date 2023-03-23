@@ -19,3 +19,7 @@ print(data.info(), "\n") #provides information about the DataFrame
 print("Describe:\n", data.describe(), "\n") #provides descriptive statistics about each column in the DataFrame
 
 #Preprocess the data
+data = data.drop_duplicates() #check and remove duplicates
+data = data.dropna() #remove null values
+
+print(data.head())
