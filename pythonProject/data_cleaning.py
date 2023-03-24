@@ -2,18 +2,17 @@ import pandas as pd
 import numpy as np
 import csv
 
-
 # Import dataLoader function from dataLoader file
 from data_loader import dataLoader
 
-#Preprocess the data
+
+# Preprocess the data
 def data_preprocess(data):
-    data = data.drop_duplicates() #check and remove duplicates
-    data = data.dropna() #remove null values
+    data = data.drop_duplicates()  # check and remove duplicates
+    data = data.dropna()  # remove null values
 
 
 with open('heart.csv', 'r') as f:
-
     # Read lines from file
     lines = f.readlines()
 
@@ -26,43 +25,28 @@ with open('heart.csv', 'r') as f:
 # Create a pandas DataFrame from the fields
 df = pd.read_csv('heart.csv')
 
-
 # Convert columns to numeric data types
-Age = df.loc[:,'Age']
+Age = df.loc[:, 'Age']
 
+RestingBP = df.loc[:, 'RestingBP']
 
-RestingBP = df.loc[:,'RestingBP']
+Cholesterol = df.loc[:, 'Cholesterol']
 
+FastingBS = df.loc[:, 'FastingBS']
 
-Cholesterol = df.loc[:,'Cholesterol']
+RestingECG = df.loc[:, 'RestingECG']
 
+MaxHR = df.loc[:, 'MaxHR']
 
-FastingBS = df.loc[:,'FastingBS']
+ExerciseAngina = df.loc[:, 'ExerciseAngina']
 
+Oldpeak = df.loc[:, 'Oldpeak']
 
-RestingECG = df.loc[:,'RestingECG']
+ST_Slope = df.loc[:, 'ST_Slope']
 
-
-MaxHR= df.loc[:,'MaxHR']
-
-
-ExerciseAngina= df.loc[:,'ExerciseAngina']
-
-
-Oldpeak = df.loc[:,'Oldpeak']
-
-
-ST_Slope = df.loc[:,'ST_Slope']
-
-
-HeartDisease = df.loc[:,'HeartDisease']
-
+HeartDisease = df.loc[:, 'HeartDisease']
 
 print(df)
-
-
-
-
 
 # Sort the DataFrame by the 'Age' column
 sorted_df = df.sort_values(by='Age')
@@ -77,14 +61,7 @@ count_normal = sorted_df['RestingECG'].value_counts()['Normal']
 count_st = sorted_df['RestingECG'].value_counts()['ST']
 count_lvh = sorted_df['RestingECG'].value_counts()['LVH']
 
-
-
-
-
-
 print('Lowest Cholesterol:', low_value)
 print('Highest Cholesterol:', high_value)
 print('Number of normal:', count_normal)
 print('Number of ST:', count_st)
-
-
