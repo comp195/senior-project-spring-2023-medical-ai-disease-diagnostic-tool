@@ -3,7 +3,7 @@ import numpy as np
 import csv
 
 # Import dataLoader function from dataLoader file
-from data_loader import dataLoader
+from data_loader import data_loader
 
 
 # Preprocess the data

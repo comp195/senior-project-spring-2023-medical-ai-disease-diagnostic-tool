@@ -12,7 +12,7 @@ print(os.getcwd(), "\n")
 
 
 # load the dataset
-def dataLoader():
+def data_loader():
     data = pd.read_csv('heart.csv', delimiter=',')
     info_str = ""
     info_str += "Head:\n" + str(data.head(5)) + "\n"  # display the first few rows of the DataFrame
