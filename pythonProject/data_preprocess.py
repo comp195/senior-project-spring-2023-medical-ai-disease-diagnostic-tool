@@ -37,7 +37,24 @@ plt.show()
 
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
     #                 numbers that the model can use.
+ # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
+    #                 numbers that the model can use.
 
+# Load the CSV file
+dataset = pd.read_csv("heart.csv")
+
+# Define the categorical columns
+categorical_cols = ['cp', 'fbs', 'restecg', 'exang', 'slope', 'thal']
+
+# Create a LabelEncoder object
+le = LabelEncoder()
+
+# Encode the categorical columns
+for col in categorical_cols:
+    dataset[col] = le.fit_transform(dataset[col].astype(str))
+
+# Print the updated DataFrame
+print(dataset.head())
 
 
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
