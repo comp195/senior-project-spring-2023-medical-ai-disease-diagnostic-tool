@@ -12,7 +12,7 @@ def data_preprocess(data):
     #                 get rid of them or fill them in with the right value. Take out any data points that are repeated.
     data = data.drop_duplicates()  # check and remove duplicates
     data = data.isnull()  # remove null values
-
+    print(data.sum()) # count missing values in each column
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
 
     # read data into a pandas dataframe
