@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import csv
 from matplotlib import pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
+
 from data_loader import data_loader
 import seaborn as sns
 
@@ -10,29 +12,23 @@ import seaborn as sns
 def data_preprocess(data_load):
     # Data Cleaning - Check to see if the dataset has any missing or "null" values. If there are blanks, you can either
     #                 get rid of them or fill them in with the right value. Take out any data points that are repeated.
-    clean_nulls = data_load.isnull().sum().sum()  # reveals missing data in the original Data and counts True values
-    if clean_nulls > 0:  # checks to see if the dataset is missing any values
-        print(f"Warning: {clean_nulls} missing values.")
+
+    if data_load.isnull().sum().sum() > 0:  # checks for null or missing values and counts the missing values, and
+        #                                     compares the result to 0.
+        print(f"Warning: {data_load.isnull().sum().sum()} missing values.")
         data_load.fillna(data_load.mean(), inplace=True)  # Use the average of the feature to fill in the missing values
     else:
         print("No missing values.")
 
-    clean_dups = data_load.duplicated().sum()
-    if clean_dups > 0:
-        print(f"Warning: {clean_dups} duplicates")
+    if data_load.duplicated().sum() > 0:  # count the total number of duplicated rows in the entire dataset.
+        print(f"Warning: {data_load.duplicated().sum()} duplicates")
         data_load.drop_duplicates(inplace=True)  # remove duplicates
     else:
         print("No duplicate values")
 
-
-data, info_str = data_loader()
-data_preprocess(data)
-'''
-
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
-
-    # read data into a pandas dataframe
-    df = pd.read_csv('heart.csv')
+    scaler = MinMaxScaler()
+    cols = data_load.select_dtypes(include=np.number).columns.tolist()  # identify the numerical and category columns
 
     # create a figure with subplots for each column
     fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 15))
@@ -45,12 +41,15 @@ data_preprocess(data)
 
     # adjust the spacing between subplots
 
-
     plt.tight_layout()
 
     # show the plot
     plt.show()
 
+
+data, info_str = data_loader()
+data_preprocess(data)
+'''
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
     #                 numbers that the model can use.
 
