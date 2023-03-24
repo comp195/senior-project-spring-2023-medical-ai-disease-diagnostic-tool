@@ -11,7 +11,8 @@ def data_preprocess(data):
     # Data Cleaning - Check to see if the dataset has any missing or "null" values. If there are blanks, you can either
     #                 get rid of them or fill them in with the right value. Take out any data points that are repeated.
     data = data.drop_duplicates()  # check and remove duplicates
-    data = data.dropna()  # remove null values
+    data = data.isnull()  # remove null values
+
 
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
 
