@@ -7,11 +7,20 @@ import seaborn as sns
 
 
 # Preprocess the data
-def data_preprocess(data):
+def data_preprocess(data_load):
     # Data Cleaning - Check to see if the dataset has any missing or "null" values. If there are blanks, you can either
     #                 get rid of them or fill them in with the right value. Take out any data points that are repeated.
-    sns.heatmap(data.isnull(), cmap='PuBu')  # make a heatmap of the values missing.
+    clean_nulls = data_load.isnull().sum().sum()  # reveals missing data in the original Data and counts True values
+    if clean_nulls > 0:  # checks to see if the dataset is missing any values
+        print(f"Warning: {clean_nulls} missing values.")
+        data_load.fillna(data_load.mean(), inplace=True)  # Use the average of the feature to fill in the missing values
+    else:
+        print("No missing values.")
 
+
+data, info_str = data_loader()
+data_preprocess(data)
+'''
     # data = data.drop_duplicates()  # check and remove duplicates
 
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
@@ -31,21 +40,24 @@ def data_preprocess(data):
     # adjust the spacing between subplots
 
 
-plt.tight_layout()
+    plt.tight_layout()
 
-# show the plot
-plt.show()
+    # show the plot
+    plt.show()
 
-# Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
-#                 numbers that the model can use.
+    # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
+    #                 numbers that the model can use.
 
-# Data Features - Choose the most important features for the machine learning model and get rid of any features that
-#                 are redundant or don't matter.
+    # Data Features - Choose the most important features for the machine learning model and get rid of any features that
+    #                 are redundant or don't matter.
 
-# Train-Test Split - Break up the data into sets for training, validating, and testing.
+    # Train-Test Split - Break up the data into sets for training, validating, and testing.
 
 
-'''
+data, info_str = data_loader()
+data_preprocess(data)
+
+
 # Convert columns to numeric data types
 Age = df.loc[:, 'Age']
 
