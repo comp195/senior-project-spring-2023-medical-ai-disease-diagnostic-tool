@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import csv
 
+from matplotlib import pyplot as plt
+
 # Import dataLoader function from dataLoader file
 from data_loader import data_loader
 
@@ -14,6 +16,24 @@ def data_preprocess(data):
     data = data.dropna()  # remove null values
 
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
+
+    # read data into a pandas dataframe
+df = pd.read_csv('heart.csv')
+
+    # create a figure with subplots for each column
+fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 15))
+
+    # loop over each column and plot a histogram
+for i, col in enumerate(df.columns):
+        ax = axs[i // 4, i % 4]  # select the appropriate subplot
+        ax.hist(df[col], bins=20, color='blue', alpha=0.5)  # plot histogram
+        ax.set_title(col)  # set the subplot title
+
+    # adjust the spacing between subplots
+plt.tight_layout()
+
+    # show the plot
+plt.show()
 
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
     #                 numbers that the model can use.
