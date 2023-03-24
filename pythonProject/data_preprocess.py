@@ -13,7 +13,6 @@ def data_preprocess(data):
     data = data.drop_duplicates()  # check and remove duplicates
     data = data.isnull()  # remove null values
 
-
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
 
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
