@@ -10,6 +10,8 @@ import seaborn as sns
 
 import os
 
+from numpy import array
+
 print(os.listdir())
 
 import warnings
@@ -27,7 +29,7 @@ pandas.core.frame.DataFrame
 
 # dataset Shape
 dataset.shape
-(919, 10)
+(900, 10)
 
 # Print some columns
 dataset.head(15)
