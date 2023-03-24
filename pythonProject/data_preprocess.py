@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import csv
 from matplotlib import pyplot as plt
+from sklearn.preprocessing import LabelEncoder
+
 from data_loader import data_loader # Import dataLoader function from dataLoader file
 
 
@@ -35,6 +37,8 @@ plt.show()
 
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
     #                 numbers that the model can use.
+
+
 
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
     #                 are redundant or don't matter.
