@@ -22,6 +22,11 @@ warnings.filterwarnings('ignore')
 
 dataset = pd.read_csv("heart.csv")
 
+if 'target' not in dataset.colums:
+    print("Error: 'target column not found in DataFrame")
+else:
+    print(dataset['target'].describe())
+
 # our dataframe  and object in pandas
 
 type(dataset)
@@ -51,6 +56,8 @@ for i in range(len(info)):
     print(dataset.columns[i] + ":\t\t\t" + info[i])
 
     dataset["target"].describe()
+    print(dataset["target"].describe())
+    print(dataset.columns)
 
     dataset["target"].unique()
     array([1, 0])
