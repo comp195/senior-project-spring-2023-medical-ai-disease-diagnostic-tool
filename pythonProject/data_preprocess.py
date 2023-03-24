@@ -11,19 +11,6 @@ def data_preprocess(data):
     data = data.dropna()  # remove null values
 
 
-with open('heart.csv', 'r') as f:
-    # Read lines from file
-    lines = f.readlines()
-
-    # Remove newline characters from lines
-    lines = [line.strip() for line in lines]
-
-    # Split lines into fields
-    fields = [line.split(';') for line in lines]
-
-# Create a pandas DataFrame from the fields
-df = pd.read_csv('heart.csv')
-
 # Convert columns to numeric data types
 Age = df.loc[:, 'Age']
 
