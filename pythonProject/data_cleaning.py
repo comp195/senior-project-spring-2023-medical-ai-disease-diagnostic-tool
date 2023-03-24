@@ -3,7 +3,14 @@ import numpy as np
 import csv
 
 
-# Open the CSV file for reading
+# Import dataLoader function from dataLoader file
+from data_loader import dataLoader
+
+#Preprocess the data
+def data_preprocess(data):
+    data = data.drop_duplicates() #check and remove duplicates
+    data = data.dropna() #remove null values
+
 
 with open('heart.csv', 'r') as f:
 
