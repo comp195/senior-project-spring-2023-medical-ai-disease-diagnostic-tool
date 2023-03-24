@@ -62,6 +62,7 @@ df = pd.DataFrame(fields[1:], columns=fields[0])
 
 # Sort the DataFrame by a category
 sorted_df = df.sort_values(by='category')
+print(f'sorted_df')
 
 # Identify the high and low values for a specified column
 column_name = 'column_name'
