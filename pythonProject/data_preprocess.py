@@ -3,7 +3,6 @@ import numpy as np
 import csv
 from matplotlib import pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
-
 from data_loader import data_loader
 import seaborn as sns
 
@@ -27,8 +26,13 @@ def data_preprocess(data_load):
         print("No duplicate values")
 
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
-    scaler = MinMaxScaler()
-    cols = data_load.select_dtypes(include=np.number).columns.tolist()  # identify the numerical and category columns
+    #
+
+    scaler = MinMaxScaler()  # scale the numerical columns of the dataset to the same range.
+    cols = data_load.select_dtypes(include='number').columns.tolist()  # Pick just numerical dataset columns by
+    #                                                                    checking for numerical data types and saving
+    #                                                                    their column names in a list.
+    data_load[cols] = scaler.fit_transform(data_load[cols])  # identify the numerical and category columns
 
     # create a figure with subplots for each column
     fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 15))
