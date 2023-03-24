@@ -17,11 +17,17 @@ def data_preprocess(data_load):
     else:
         print("No missing values.")
 
+    clean_dups = data_load.duplicated().sum()
+    if clean_dups > 0:
+        print(f"Warning: {clean_dups} duplicates")
+        data_load.drop_duplicates(inplace=True)  # remove duplicates
+    else:
+        print("No duplicate values")
+
 
 data, info_str = data_loader()
 data_preprocess(data)
 '''
-    # data = data.drop_duplicates()  # check and remove duplicates
 
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
 
