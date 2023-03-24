@@ -1,11 +1,9 @@
 import pandas as pd
 import numpy as np
 import csv
-
 from matplotlib import pyplot as plt
+from data_loader import data_loader # Import dataLoader function from dataLoader file
 
-# Import dataLoader function from dataLoader file
-from data_loader import data_loader
 
 
 # Preprocess the data
