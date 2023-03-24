@@ -5,7 +5,6 @@ import csv
 # Import dataLoader function from dataLoader file
 from data_loader import data_loader
 
-
 # Preprocess the data
 def data_preprocess(data):
     data = data.drop_duplicates()  # check and remove duplicates
