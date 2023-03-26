@@ -1,9 +1,10 @@
 import pandas as pd
 import numpy as np
 import csv
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
+from scipy import stats
 import seaborn as sns
 
 
@@ -25,6 +26,17 @@ def data_preprocess(data_load):
     else:
         print("No duplicate values")
 
+    disease_by_sex = data_load.groupby('Sex')['HeartDisease'].sum()  # Count heart disease patients by sex.
+    plt.bar(disease_by_sex.index, disease_by_sex.values)  # create bar chart
+    plt.xlabel('Sex')
+    plt.ylabel('Number of patients with Heart Disease')
+    plt.title('Relationship')
+    plt.show()
+
+
+data, info_str = data_loader()
+data_preprocess(data)
+'''
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
     #
 
@@ -50,10 +62,6 @@ def data_preprocess(data_load):
     # show the plot
     plt.show()
 
-
-data, info_str = data_loader()
-data_preprocess(data)
-'''
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
     #                 numbers that the model can use.
 
