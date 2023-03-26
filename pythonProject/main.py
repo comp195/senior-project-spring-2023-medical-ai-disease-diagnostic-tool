@@ -142,3 +142,23 @@ print(Oldpeak)
 print(ST_Slope)
 print(HeartDisease)
 
+print('Sort the DataFrame by the Age column')
+
+# Sort the DataFrame by the 'Age' column
+sorted_df = df.sort_values(by='Age')
+
+# Identify the high and low values for the 'Cholesterol' column
+low_value = sorted_df['Cholesterol'].min()
+high_value = sorted_df['Cholesterol'].max()
+
+# Identify the number of 'normal' and 'ST' values in the 'ST_Slope' column
+
+count_normal = sorted_df['RestingECG'].value_counts()['Normal']
+count_st = sorted_df['RestingECG'].value_counts()['ST']
+count_lvh = sorted_df['RestingECG'].value_counts()['LVH']
+
+print('Lowest Cholesterol:', low_value)
+print('Highest Cholesterol:', high_value)
+print('Number of normal:', count_normal)
+print('Number of ST:', count_st)
+
