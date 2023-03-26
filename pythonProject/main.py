@@ -104,7 +104,7 @@ column_name = 'column_name'
 #print('Number of normal:', count_normal)
 #print('Number of ST:', count_st)
 
-print('Sunday26')
+print('Sunday_marc_h26')
 
 # Convert columns to numeric data types
 
