@@ -9,6 +9,9 @@ from sympy import categories
 from data_loader import data_loader
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pygal
 
 
 def print_hi(name):
@@ -175,6 +178,41 @@ age_sum = df.groupby('Age Category')[numeric_cols].sum()
 
 # Print the result
 print(age_sum)
+
+print('work')
+
+df = pd.read_csv('heart.csv')
+
+# Define the column names and titles for each histogram
+columns = ['Age', 'Sex', 'ChestPainType', 'RestingBP', 'Cholesterol', 'FastingBS',
+           'RestingECG', 'MaxHR', 'ExerciseAngina', 'Oldpeak', 'ST_Slope', 'HeartDisease']
+titles = ['Age Distribution', 'Sex Distribution', 'Chest Pain Type Distribution',
+          'Resting Blood Pressure Distribution', 'Cholesterol Distribution',
+          'Fasting Blood Sugar Distribution', 'Resting Electrocardiogram Distribution',
+          'Maximum Heart Rate Distribution', 'Exercise-Induced Angina Distribution',
+          'ST Depression Distribution', 'ST Slope Distribution', 'Heart Disease Distribution']
+
+# Create a figure with 4 rows and 3 columns of subplots
+fig, axs = plt.subplots(nrows=4, ncols=3, figsize=(12, 16))
+
+# Plot each histogram in a separate subplot
+for i, ax in enumerate(axs.flat):
+    if i < len(columns):
+        ax.hist(df[columns[i]])
+        ax.set_title(titles[i])
+        ax.set_xlabel(columns[i])
+        ax.set_ylabel('Frequency')
+
+# Adjust the spacing between subplots
+plt.tight_layout()
+
+# Display the figure
+plt.show()
+
+
+
+
+
 
 
 
