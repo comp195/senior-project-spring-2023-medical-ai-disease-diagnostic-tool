@@ -5,6 +5,7 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from data_loader import data_loader
+import pandas as pd
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -103,4 +104,41 @@ column_name = 'column_name'
 #print('Number of normal:', count_normal)
 #print('Number of ST:', count_st)
 
+print('Sunday26')
+
+# Convert columns to numeric data types
+
+df = pd.read_csv('heart.csv')
+
+Age = pd.to_numeric(df.loc[:, 'Age'], errors='coerce')
+
+RestingBP = pd.to_numeric(df.loc[:, 'RestingBP'], errors='coerce')
+
+Cholesterol = pd.to_numeric(df.loc[:, 'Cholesterol'], errors='coerce')
+
+FastingBS = pd.to_numeric(df.loc[:, 'FastingBS'], errors='coerce')
+
+RestingECG = pd.to_numeric(df.loc[:, 'RestingECG'], errors='coerce')
+
+MaxHR = pd.to_numeric(df.loc[:, 'MaxHR'], errors='coerce')
+
+ExerciseAngina = pd.to_numeric(df.loc[:, 'ExerciseAngina'], errors='coerce')
+
+Oldpeak = pd.to_numeric(df.loc[:, 'Oldpeak'], errors='coerce')
+
+ST_Slope = pd.to_numeric(df.loc[:, 'ST_Slope'], errors='coerce')
+
+HeartDisease = pd.to_numeric(df.loc[:, 'HeartDisease'], errors='coerce')
+
+# print the updated variables
+print(Age)
+print(RestingBP)
+print(Cholesterol)
+print(FastingBS)
+print(RestingECG)
+print(MaxHR)
+print(ExerciseAngina)
+print(Oldpeak)
+print(ST_Slope)
+print(HeartDisease)
 
