@@ -19,7 +19,7 @@ def data_loader():
     info_str += "Shape:\n" + str(data.shape) + "\n"  # returns the dimensions (rows, columns) of the DataFrame as a
     # tuple
     info_str += str(data.info()) + "\n"  # provides information about the DataFrame
-    info_str += "Describe:\n" + str(data.describe()) + "\n"  # provides descriptive statistics about each column in
+    info_str += "Descmribe:\n" + str(data.describe()) + "\n"  # provides descriptive statistics about each column in
     # the DataFrame
 
     return data, info_str
