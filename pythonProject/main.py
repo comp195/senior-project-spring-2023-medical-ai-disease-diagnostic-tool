@@ -4,8 +4,12 @@
 # Korie Westbrook
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from sympy import categories
+
 from data_loader import data_loader
 import pandas as pd
+import numpy as np
+
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -104,45 +108,38 @@ column_name = 'column_name'
 #print('Number of normal:', count_normal)
 #print('Number of ST:', count_st)
 
-print('Sunday_marc_h26')
+print('Sunday_march_26, Mansoor ')
 
 # Convert columns to numeric data types
 
 df = pd.read_csv('heart.csv')
 
+# Convert columns to numeric data types
 Age = pd.to_numeric(df.loc[:, 'Age'], errors='coerce')
-
 RestingBP = pd.to_numeric(df.loc[:, 'RestingBP'], errors='coerce')
-
 Cholesterol = pd.to_numeric(df.loc[:, 'Cholesterol'], errors='coerce')
-
 FastingBS = pd.to_numeric(df.loc[:, 'FastingBS'], errors='coerce')
-
 RestingECG = pd.to_numeric(df.loc[:, 'RestingECG'], errors='coerce')
-
 MaxHR = pd.to_numeric(df.loc[:, 'MaxHR'], errors='coerce')
-
 ExerciseAngina = pd.to_numeric(df.loc[:, 'ExerciseAngina'], errors='coerce')
-
 Oldpeak = pd.to_numeric(df.loc[:, 'Oldpeak'], errors='coerce')
-
 ST_Slope = pd.to_numeric(df.loc[:, 'ST_Slope'], errors='coerce')
-
 HeartDisease = pd.to_numeric(df.loc[:, 'HeartDisease'], errors='coerce')
 
-# print the updated variables
-print(Age)
-print(RestingBP)
-print(Cholesterol)
-print(FastingBS)
-print(RestingECG)
-print(MaxHR)
-print(ExerciseAngina)
-print(Oldpeak)
-print(ST_Slope)
-print(HeartDisease)
+# Create a new DataFrame with the updated variables
+df_updated = pd.DataFrame({'Age': Age, 'RestingBP': RestingBP, 'Cholesterol': Cholesterol,
+                           'FastingBS': FastingBS, 'RestingECG': RestingECG, 'MaxHR': MaxHR,
+                           'ExerciseAngina': ExerciseAngina, 'Oldpeak': Oldpeak, 'ST_Slope': ST_Slope,
+                           'HeartDisease': HeartDisease})
 
-print('Sort the DataFrame by the Age column')
+# Sort the DataFrame by the 'Age' column in ascending order
+df_sorted = df_updated.sort_values(by='Age')
+
+# Print the sorted DataFrame
+print(df_sorted)
+
+
+print('Sort the DataFrame by the Age column, Mansoor')
 
 # Sort the DataFrame by the 'Age' column
 sorted_df = df.sort_values(by='Age')
@@ -161,4 +158,23 @@ print('Lowest Cholesterol:', low_value)
 print('Highest Cholesterol:', high_value)
 print('Number of normal:', count_normal)
 print('Number of ST:', count_st)
+
+print('categories by age difference, Mansoor')
+# Convert the 'Age' column to numeric data type
+df['Age'] = pd.to_numeric(df['Age'], errors='coerce')
+
+# Categorize ages into young, middle-aged, and old
+age_categories = pd.cut(df['Age'], bins=[0, 30, 60, 100], labels=['young', 'middle-aged', 'old'])
+df['Age Category'] = age_categories
+
+# Select only the numeric columns for the sum
+numeric_cols = df.select_dtypes(include=np.number).columns
+
+# Group the DataFrame by the 'Age Category' column and sum the values in each group
+age_sum = df.groupby('Age Category')[numeric_cols].sum()
+
+# Print the result
+print(age_sum)
+
+
 
