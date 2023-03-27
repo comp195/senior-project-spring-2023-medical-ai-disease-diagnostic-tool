@@ -59,6 +59,13 @@ def data_preprocess(data_load):
     plt.title('Relationship')
     plt.show()
 
+    sns.countplot(x='FastingBS', hue='HeartDisease', data=data)
+    plt.xlabel('Fasting Blood Sugar (mg/dL)')
+    plt.ylabel('Number of Patients')
+    plt.title('Heart Disease Patients by Fasting Blood Sugar Level')
+    plt.show()
+
+
 
 data, info_str = data_loader()
 data_preprocess(data)
