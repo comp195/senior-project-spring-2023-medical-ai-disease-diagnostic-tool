@@ -99,6 +99,10 @@ def data_preprocess(data_load):
     plt.title('Relationship')
     plt.show()
 
+    corr_matrix = data_load.corr()
+    sns.heatmap(corr_matrix, annot=True, cmap="YlGnBu")
+    plt.show()
+
 
 data, info_str = data_loader()
 data_preprocess(data)
