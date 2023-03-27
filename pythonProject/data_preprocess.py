@@ -65,6 +65,13 @@ def data_preprocess(data_load):
     plt.title('Heart Disease Patients by Fasting Blood Sugar Level')
     plt.show()
 
+    resting_ecg_counts = data_load['RestingECG'].value_counts()
+    disease_by_resting_ecg = data_load.groupby('RestingECG')['HeartDisease'].sum()
+    plt.bar(resting_ecg_counts.index, disease_by_resting_ecg)
+    plt.xlabel('Resting Electrocardiogram Result')
+    plt.ylabel('Number of Patients with Heart Disease')
+    plt.title('HeartDisease by RestingECG')
+    plt.show()
 
 
 data, info_str = data_loader()
