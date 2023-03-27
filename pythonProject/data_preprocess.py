@@ -86,6 +86,11 @@ def data_preprocess(data_load):
     plt.title('Heart Disease and Exercise Angina')
     plt.show()
 
+    plt.scatter(data_load['Oldpeak'], data_load['HeartDisease'], c=data_load['HeartDisease'])
+    plt.xlabel('Exercise-induced ST depression')
+    plt.ylabel('Number of Patients with Heart Disease')
+    plt.title('Oldpeak-HeartDisease Connection')
+    plt.show()
 
 
 data, info_str = data_loader()
