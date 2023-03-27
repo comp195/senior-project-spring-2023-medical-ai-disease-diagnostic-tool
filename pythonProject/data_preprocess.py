@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import csv
 import matplotlib.pyplot as plt
+import pylab as pl
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
@@ -25,9 +26,8 @@ def data_preprocess(data_load):
     else:
         print("No duplicate values")
 
-    disease_by_sex = data.groupby('Sex')['HeartDisease'].sum()  # Count heart disease patients by sex.
-    plt.bar(disease_by_sex.index, disease_by_sex.values)
-    plt.xlabel('Sex')
+    plt.scatter(data_load['Age'], data_load['HeartDisease'])  # create a scatter plot
+    plt.xlabel('Age')
     plt.ylabel('Number of Patients with Heart Disease')
     plt.title('Relationship')
     plt.show()

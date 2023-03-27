@@ -23,3 +23,8 @@ def data_loader():
     # the DataFrame
 
     return data, info_str
+
+'''''
+data, info_str = data_loader()
+print(data['FastingBS'])
+'''
