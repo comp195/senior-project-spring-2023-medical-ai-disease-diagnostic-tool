@@ -92,6 +92,13 @@ def data_preprocess(data_load):
     plt.title('Oldpeak-HeartDisease Connection')
     plt.show()
 
+    disease_by_sts = data_load.groupby(['ST_Slope', 'HeartDisease']).size().unstack()
+    disease_by_sts.plot(kind='bar', stacked=True)
+    plt.xlabel('ST segment slope')
+    plt.ylabel('Number of Patients with Heart Disease')
+    plt.title('Relationship')
+    plt.show()
+
 
 data, info_str = data_loader()
 data_preprocess(data)
