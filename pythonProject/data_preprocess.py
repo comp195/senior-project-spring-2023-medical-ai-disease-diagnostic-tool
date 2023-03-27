@@ -112,6 +112,7 @@ def data_preprocess(data_load):
     plt.ylabel('Number of Patents')
     plt.show()
 
+
 data, info_str = data_loader()
 data_preprocess(data)
 
