@@ -41,7 +41,7 @@ def data_preprocess(data_load):
     plt.show()
 
     disease_by_cpt = data_load.groupby('ChestPainType')['HeartDisease'].sum()
-    plt.bar(disease_by_cpt.index, disease_by_cpt.values)
+    plt.bar(disease_by_cpt.index, disease_by_cpt.values)  # bar chart
     plt.xlabel('Chest Pain Type')
     plt.ylabel('Number of Patients with Heart Disease')
     plt.title('Relationship')
