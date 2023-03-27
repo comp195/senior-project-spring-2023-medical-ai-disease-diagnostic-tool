@@ -79,6 +79,13 @@ def data_preprocess(data_load):
     plt.title('Relationship between MaxHR and HeartDisease')
     plt.show()
 
+    disease_by_ea = data_load.groupby(['ExerciseAngina', 'HeartDisease'])['HeartDisease'].count()
+    disease_by_ea.unstack().plot(kind='bar', stacked=True)
+    plt.xlabel('Exercise-induced angina')
+    plt.ylabel('Number of Patients with Heart Disease')
+    plt.title('Heart Disease and Exercise Angina')
+    plt.show()
+
 
 
 data, info_str = data_loader()
