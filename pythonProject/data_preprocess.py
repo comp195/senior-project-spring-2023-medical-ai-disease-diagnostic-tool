@@ -32,6 +32,15 @@ def data_preprocess(data_load):
     plt.title('Relationship')
     plt.show()
 
+    disease_by_sex = data.groupby(['Sex', 'HeartDisease']).size().unstack()  # Count the incidences by Sex and
+    #                                                                          HeartDisease.
+    disease_by_sex.plot(kind='bar', stacked=True)  # create a stacked bar chart
+    plt.xlabel('Heart Disease')
+    plt.ylabel('Number of Patients')
+    plt.title('Relationship')
+    plt.show()
+
+
 
 data, info_str = data_loader()
 data_preprocess(data)
