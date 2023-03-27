@@ -53,6 +53,12 @@ def data_preprocess(data_load):
     plt.title('Relationship')
     plt.show()
 
+    plt.scatter(data_load['Cholesterol'], data_load['HeartDisease'])
+    plt.xlabel('Cholesterol')
+    plt.ylabel('Number of Patients with Heart Disease')
+    plt.title('Relationship')
+    plt.show()
+
 
 data, info_str = data_loader()
 data_preprocess(data)
