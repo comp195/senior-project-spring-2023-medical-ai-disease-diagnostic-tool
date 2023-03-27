@@ -73,6 +73,13 @@ def data_preprocess(data_load):
     plt.title('HeartDisease by RestingECG')
     plt.show()
 
+    plt.scatter(data_load['MaxHR'], data_load['HeartDisease'])
+    plt.xlabel('maximum heart rate')
+    plt.ylabel('Number of Patients with Heart Disease')
+    plt.title('Relationship between MaxHR and HeartDisease')
+    plt.show()
+
+
 
 data, info_str = data_loader()
 data_preprocess(data)
