@@ -10,8 +10,8 @@ import seaborn as sns
 
 # Preprocess the data
 def data_preprocess(data_load):
-    # Data Cleaning - Check to see if the dataset has any missing or "null" values. If there are blanks, you can either
-    #                 get rid of them or fill them in with the right value. Take out any data points that are repeated.
+    # Data Cleaning - remove mistakes, inconsistencies, and missing values using imputation, outlier identification,
+    #                 and data deduplication.
 
     if data_load.isnull().sum().sum() > 0:  # checks for null or missing values and counts the missing values, and
         #                                     compares the result to 0.
@@ -25,6 +25,8 @@ def data_preprocess(data_load):
         data_load.drop_duplicates(inplace=True)  # remove duplicates
     else:
         print("No duplicate values")
+
+    # Visualization
 
     plt.scatter(data_load['Age'], data_load['HeartDisease'])  # create a scatter plot
     plt.xlabel('Age')
@@ -103,6 +105,12 @@ def data_preprocess(data_load):
     sns.heatmap(corr_matrix, annot=True, cmap="YlGnBu")
     plt.show()
 
+    age_data = data['Age']
+    sns.histplot(age_data, kde=False)  # create histogram
+    plt.title('Distribution of Ages')
+    plt.xlabel('Age')
+    plt.ylabel('Number of Patents')
+    plt.show()
 
 data, info_str = data_loader()
 data_preprocess(data)
