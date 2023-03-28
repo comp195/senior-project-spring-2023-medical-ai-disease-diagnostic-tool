@@ -105,11 +105,18 @@ def data_preprocess(data_load):
     sns.heatmap(corr_matrix, annot=True, cmap="YlGnBu")
     plt.show()
 
-    age_data = data['Age']
+    age_data = data_load['Age']
     sns.histplot(age_data, kde=False)  # create histogram
     plt.title('Distribution of Ages')
     plt.xlabel('Age')
     plt.ylabel('Number of Patents')
+    plt.show()
+
+    sex_data = data_load['Sex']
+    sns.histplot(sex_data, kde=False)
+    plt.title('Distribution of Sex')
+    plt.xlabel('Sex')
+    plt.ylabel('Number of Patients')
     plt.show()
 
 
