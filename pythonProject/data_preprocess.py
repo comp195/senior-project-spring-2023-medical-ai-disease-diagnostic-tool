@@ -109,7 +109,7 @@ def data_preprocess(data_load):
     sns.histplot(age_data, kde=False)  # create histogram
     plt.title('Distribution of Ages')
     plt.xlabel('Age')
-    plt.ylabel('Number of Patent')
+    plt.ylabel('Number of Patents')
     plt.show()
 
     sex_data = data_load['Sex']
