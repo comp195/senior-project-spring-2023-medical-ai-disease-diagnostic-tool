@@ -119,6 +119,69 @@ def data_preprocess(data_load):
     plt.ylabel('Number of Patients')
     plt.show()
 
+    cpt_data = data_load['ChestPainType']
+    sns.histplot(cpt_data, kde=False)
+    plt.title('Distribution of Chest Pain Types')
+    plt.xlabel('Chest Pain Type')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
+    rbp_data = data_load['RestingBP']
+    sns.histplot(rbp_data, kde=False)
+    plt.title('Distribution of Resting Blood Pressures')
+    plt.xlabel('Resting Blood Pressure')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
+    chol_data = data_load['Cholesterol']
+    sns.histplot(chol_data, kde=False)
+    plt.title('Distribution of Cholesterol')
+    plt.xlabel('Cholesterol')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
+    fbs_data = data_load['FastingBS']
+    sns.histplot(fbs_data, kde=False)
+    plt.title('Distribution of Fasting Blood Pressures')
+    plt.xlabel('Fasting Blood Pressure')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
+    recg_data = data_load['RestingECG']
+    sns.histplot(recg_data, kde=False)
+    plt.title('Distribution of Resting Electrocardiograms')
+    plt.xlabel('Resting Electrocardiograms')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
+    mhr_data = data_load['MaxHR']
+    sns.histplot(mhr_data, kde=False)
+    plt.title('Distribution of Maximum Heart Rates')
+    plt.xlabel('Maximum Heart Rates')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
+    ea_data = data_load['ExerciseAngina']
+    sns.histplot(ea_data, kde=False)
+    plt.title('Distribution of Exercise-induced angina')
+    plt.xlabel('Exercise-induced angina')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
+    op_data = data_load['Oldpeak']
+    sns.histplot(op_data, kde=False)
+    plt.title('Distribution of Exercise-induced ST depressions')
+    plt.xlabel('Exercise-induced ST depressions')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
+    sts_data = data_load['ST_Slope']
+    sns.histplot(sts_data, kde=False)
+    plt.title('Distribution of ST segment slope')
+    plt.xlabel('ST segment slope')
+    plt.ylabel('Number of Patients')
+    plt.show()
+
 
 data, info_str = data_loader()
 data_preprocess(data)
