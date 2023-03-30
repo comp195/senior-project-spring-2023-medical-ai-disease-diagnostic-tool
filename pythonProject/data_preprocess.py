@@ -26,7 +26,7 @@ def data_preprocess(data_load):
     else:
         print("No duplicate values")
 
-    # Visualization
+    #       Visualization of correlation between variables and target variable
 
     plt.scatter(data_load['Age'], data_load['HeartDisease'])  # create a scatter plot
     plt.xlabel('Age')
@@ -105,6 +105,8 @@ def data_preprocess(data_load):
     sns.heatmap(corr_matrix, annot=True, cmap="YlGnBu")
     plt.show()
 
+    #       visualization of distribution of variables
+
     age_data = data_load['Age']
     sns.histplot(age_data, kde=False)  # create histogram
     plt.title('Distribution of Ages')
@@ -182,15 +184,13 @@ def data_preprocess(data_load):
     plt.ylabel('Number of Patients')
     plt.show()
 
+    #       Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
+
 
 data, info_str = data_loader()
 data_preprocess(data)
 
 '''
-
-
-    # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
-    #
 
     scaler = MinMaxScaler()  # scale the numerical columns of the dataset to the same range.
     cols = data_load.select_dtypes(include='number').columns.tolist()  # Pick just numerical dataset columns by
