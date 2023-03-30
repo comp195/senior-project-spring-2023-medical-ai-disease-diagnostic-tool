@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import csv
 import matplotlib.pyplot as plt
 import pylab as pl
 from sklearn.preprocessing import MinMaxScaler
@@ -193,6 +192,9 @@ def data_preprocess(data_load):
     #                                                                    their column names in a list.
     data_load[cols] = scaler.fit_transform(data_load[cols])  # identify the numerical and category columns
 
+    #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
+    #                       into numbers that the model can use.
+
 
 data, info_str = data_loader()
 data_preprocess(data)
@@ -215,8 +217,7 @@ data_preprocess(data)
     # show the plot
     plt.show()
 
-    # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
-    #                 numbers that the model can use.
+
 
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
     #                 are redundant or don't matter.
