@@ -185,18 +185,19 @@ def data_preprocess(data_load):
     plt.show()
 
     #       Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
-
-
-data, info_str = data_loader()
-data_preprocess(data)
-
-'''
+    #                      to make sure that high-value features don't take over the model and skew the results.
 
     scaler = MinMaxScaler()  # scale the numerical columns of the dataset to the same range.
     cols = data_load.select_dtypes(include='number').columns.tolist()  # Pick just numerical dataset columns by
     #                                                                    checking for numerical data types and saving
     #                                                                    their column names in a list.
     data_load[cols] = scaler.fit_transform(data_load[cols])  # identify the numerical and category columns
+
+
+data, info_str = data_loader()
+data_preprocess(data)
+
+'''
 
     # create a figure with subplots for each column
     fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 15))
