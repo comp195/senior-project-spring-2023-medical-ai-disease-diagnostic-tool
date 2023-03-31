@@ -27,13 +27,16 @@ def data_preprocess(data_load):
 
     #       Visualization of correlation between variables and target variable
 
-    plt.scatter(data_load['Age'], data_load['HeartDisease'])  # create a scatter plot
+    heart_disease_yes = data[data['HeartDisease'] == 1]
+    heart_disease_no = data[data['HeartDisease'] == 0]
+    plt.hist([heart_disease_yes['Age'], heart_disease_no['Age']], alpha=0.5)
     plt.xlabel('Age')
-    plt.ylabel('Number of Patients with Heart Disease')
+    plt.ylabel('Number of Patients')
+    plt.legend(['1', '0'])
     plt.title('Relationship')
     plt.show()
 
-    disease_by_sex = data.groupby(['Sex', 'HeartDisease']).size().unstack()  # Count the incidences by Sex and
+    disease_by_sex = data_load.groupby(['Sex', 'HeartDisease']).size().unstack()  # Count the incidences by Sex and
     #                                                                          HeartDisease.
     disease_by_sex.plot(kind='bar', stacked=True)  # create a stacked bar chart
     plt.xlabel('Heart Disease')
@@ -48,9 +51,10 @@ def data_preprocess(data_load):
     plt.title('Relationship')
     plt.show()
 
-    plt.scatter(data_load['RestingBP'], data_load['HeartDisease'])
+    disease_by_rbp = data_load.groupby(['RestingBP', 'HeartDisease']).size().unstack()
+    disease_by_rbp.plot(kind='bar', stacked=True)
     plt.xlabel('Resting blood pressure')
-    plt.ylabel('Number of Patients with Heart Disease')
+    plt.ylabel('Number of Patients')
     plt.title('Relationship')
     plt.show()
 
