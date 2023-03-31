@@ -29,6 +29,7 @@ def data_preprocess(data_load):
 
     heart_disease_yes = data[data['HeartDisease'] == 1]
     heart_disease_no = data[data['HeartDisease'] == 0]
+
     plt.hist([heart_disease_yes['Age'], heart_disease_no['Age']], alpha=0.5)
     plt.xlabel('Age')
     plt.ylabel('Number of Patients')
@@ -51,21 +52,20 @@ def data_preprocess(data_load):
     plt.title('Relationship')
     plt.show()
 
-    disease_by_rbp = data_load.groupby(['RestingBP', 'HeartDisease']).size().unstack()
-    disease_by_rbp.plot(kind='bar', stacked=True)
-    plt.xlabel('Resting blood pressure')
+    plt.hist([heart_disease_yes['RestingBP'], heart_disease_no['RestingBP']], alpha=0.5)
+    plt.xlabel('Resting blood pressure (in mm Hg on admission to the hospital)')
     plt.ylabel('Number of Patients')
     plt.title('Relationship')
     plt.show()
 
-    plt.scatter(data_load['Cholesterol'], data_load['HeartDisease'])
-    plt.xlabel('Cholesterol')
+    plt.hist([heart_disease_yes['Cholesterol'], heart_disease_no['Cholesterol']], alpha=0.5)
+    plt.xlabel('Cholesterol in mg/dl')
     plt.ylabel('Number of Patients with Heart Disease')
     plt.title('Relationship')
     plt.show()
 
-    sns.countplot(x='FastingBS', hue='HeartDisease', data=data)
-    plt.xlabel('Fasting Blood Sugar (mg/dL)')
+    sns.countplot(x='FastingBS', hue='HeartDisease', data=data_load)
+    plt.xlabel('Fasting blood sugar > 120 mg/dl')
     plt.ylabel('Number of Patients')
     plt.title('Heart Disease Patients by Fasting Blood Sugar Level')
     plt.show()
@@ -78,7 +78,7 @@ def data_preprocess(data_load):
     plt.title('HeartDisease by RestingECG')
     plt.show()
 
-    plt.scatter(data_load['MaxHR'], data_load['HeartDisease'])
+    plt.hist([heart_disease_yes['MaxHR'], heart_disease_no['MaxHR']], alpha=0.5)
     plt.xlabel('maximum heart rate')
     plt.ylabel('Number of Patients with Heart Disease')
     plt.title('Relationship between MaxHR and HeartDisease')
@@ -91,15 +91,15 @@ def data_preprocess(data_load):
     plt.title('Heart Disease and Exercise Angina')
     plt.show()
 
-    plt.scatter(data_load['Oldpeak'], data_load['HeartDisease'], c=data_load['HeartDisease'])
-    plt.xlabel('Exercise-induced ST depression')
+    plt.hist([heart_disease_yes['Oldpeak'], heart_disease_no['Oldpeak']], alpha=0.5)
+    plt.xlabel('ST depression induced by exercise relative to rest')
     plt.ylabel('Number of Patients with Heart Disease')
     plt.title('Oldpeak-HeartDisease Connection')
     plt.show()
 
     disease_by_sts = data_load.groupby(['ST_Slope', 'HeartDisease']).size().unstack()
     disease_by_sts.plot(kind='bar', stacked=True)
-    plt.xlabel('ST segment slope')
+    plt.xlabel('The slope of the peak exercise ST segment')
     plt.ylabel('Number of Patients with Heart Disease')
     plt.title('Relationship')
     plt.show()
