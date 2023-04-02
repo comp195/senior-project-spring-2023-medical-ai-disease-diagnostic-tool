@@ -218,9 +218,6 @@ data_preprocess(data)
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
     #                 are redundant or don't matter.
 
-    # Train-Test Split - Break up the data into sets for training, validating, and testing.
-
-
 data, info_str = data_loader()
 data_preprocess(data)
 
