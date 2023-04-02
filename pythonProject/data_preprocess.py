@@ -6,10 +6,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
+from scipy import stats
 
 
 # Preprocess the data
-def data_preprocess(data_load):
+def data_preprocess(file):
+    data_load = file[0]
     # Data Cleaning - remove mistakes, inconsistencies, and missing values using imputation, outlier identification,
     #                 and data deduplication.
 
@@ -109,7 +111,7 @@ def data_preprocess(data_load):
     sns.heatmap(corr_matrix, annot=True, cmap="YlGnBu")
     plt.show()
 
-    #       visualization of distribution of variables
+    #       Handle Outliers - visualization of distribution of variables and statistically
 
     age_data = data_load['Age']
     sns.histplot(age_data, kde=False)  # create histogram
@@ -188,6 +190,8 @@ def data_preprocess(data_load):
     plt.ylabel('Number of Patients')
     plt.show()
 
+
+
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
     #                 into numbers that the model can use.
 
@@ -205,14 +209,16 @@ def data_preprocess(data_load):
 
     # Data Splitting - Separate the data into sets for training and sets for testing.
 
-    x = data.drop('HeartDisease', axis=1)  # separate features and the target variable
-    y = data['HeartDisease']
+    x = data_load.drop('HeartDisease', axis=1)  # separate features and the target variable
+    y = data_load['HeartDisease']
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
+    return data_load
 
-data, info_str = data_loader()
-data_preprocess(data)
+
+file = data_loader()
+processed_data = data_preprocess(file)
 
 '''
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
