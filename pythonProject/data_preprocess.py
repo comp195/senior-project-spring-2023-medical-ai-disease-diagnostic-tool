@@ -27,8 +27,8 @@ def data_preprocess(data_load):
 
     #       Visualization of correlation between variables and target variable
 
-    heart_disease_yes = data[data['HeartDisease'] == 1]
-    heart_disease_no = data[data['HeartDisease'] == 0]
+    heart_disease_yes = data_load[data_load['HeartDisease'] == 1]
+    heart_disease_no = data_load[data_load['HeartDisease'] == 0]
 
     plt.hist([heart_disease_yes['Age'], heart_disease_no['Age']], alpha=0.5)
     plt.xlabel('Age')
@@ -187,20 +187,11 @@ def data_preprocess(data_load):
     plt.ylabel('Number of Patients')
     plt.show()
 
-    # create a figure with subplots for each column
-    fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 15))
+    #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
+    #                       into numbers that the model can use.
 
-    # loop over each column and plot a histogram
-    for i, col in enumerate(df.columns):
-        ax = axs[i // 4, i % 4]  # select the appropriate subplot
-        ax.hist(df[col], bins=20, color='blue', alpha=0.5)  # plot histogram
-        ax.set_title(col)  # set the subplot title
-
-    # adjust the spacing between subplots
-    plt.tight_layout()
-
-    # show the plot
-    plt.show()
+    col_encode = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
+    data_load_encode = pd.get_dummies(data_load, columns=col_encode)
 
     #       Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
     #                      to make sure that high-value features don't take over the model and skew the results.
@@ -210,9 +201,6 @@ def data_preprocess(data_load):
     #                                                                    checking for numerical data types and saving
     #                                                                    their column names in a list.
     data_load[cols] = scaler.fit_transform(data_load[cols])  # identify the numerical and category columns
-
-    #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
-    #                       into numbers that the model can use.
 
 
 data, info_str = data_loader()
@@ -288,4 +276,17 @@ print('Lowest Cholesterol:', low_value)
 print('Highest Cholesterol:', high_value)
 print('Number of normal:', count_normal)
 print('Number of ST:', count_st')
+
+    # create a figure with subplots for each column
+    fig, axs = plt.subplots(nrows=4, ncols=3, figsize=(15, 10))
+    plt.subplots_adjust(hspace=0.5)
+
+    # loop over each column and plot a histogram
+    for i, col in enumerate(data_load.columns[:-1]):
+        sns.histplot(data_load[col], kde=False, ax=axs[i // 3, i % 3])
+        axs[i // 3, i % 3].set_title(f'Distribution of {col}')
+        axs[i // 3, i % 3].set_xlabel(col)
+        axs[i // 3, i % 3].set_ylabel('Number of Patients')
+
+    plt.show()
 '''
