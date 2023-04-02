@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import pylab as pl
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
@@ -187,14 +188,14 @@ def data_preprocess(data_load):
     plt.ylabel('Number of Patients')
     plt.show()
 
-    #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
-    #                       into numbers that the model can use.
+    # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
+    #                 into numbers that the model can use.
 
     col_encode = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
     data_load_encode = pd.get_dummies(data_load, columns=col_encode)
 
-    #       Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
-    #                      to make sure that high-value features don't take over the model and skew the results.
+    # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
+    #                to make sure that high-value features don't take over the model and skew the results.
 
     scaler = MinMaxScaler()  # scale the numerical columns of the dataset to the same range.
     cols = data_load.select_dtypes(include='number').columns.tolist()  # Pick just numerical dataset columns by
@@ -202,30 +203,18 @@ def data_preprocess(data_load):
     #                                                                    their column names in a list.
     data_load[cols] = scaler.fit_transform(data_load[cols])  # identify the numerical and category columns
 
+    # Data Splitting - Separate the data into sets for training and sets for testing.
+
+    x = data.drop('HeartDisease', axis=1)  # separate features and the target variable
+    y = data['HeartDisease']
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
+
 
 data, info_str = data_loader()
 data_preprocess(data)
 
 '''
-
-    # create a figure with subplots for each column
-    fig, axs = plt.subplots(nrows=3, ncols=4, figsize=(20, 15))
-
-    # loop over each column and plot a histogram
-    for i, col in enumerate(df.columns):
-        ax = axs[i // 4, i % 4]  # select the appropriate subplot
-        ax.hist(df[col], bins=20, color='blue', alpha=0.5)  # plot histogram
-        ax.set_title(col)  # set the subplot title
-
-    # adjust the spacing between subplots
-
-    plt.tight_layout()
-
-    # show the plot
-    plt.show()
-
-
-
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
     #                 are redundant or don't matter.
 
@@ -234,30 +223,6 @@ data_preprocess(data)
 
 data, info_str = data_loader()
 data_preprocess(data)
-
-
-# Convert columns to numeric data types
-Age = df.loc[:, 'Age']
-
-RestingBP = df.loc[:, 'RestingBP']
-
-Cholesterol = df.loc[:, 'Cholesterol']
-
-FastingBS = df.loc[:, 'FastingBS']
-
-RestingECG = df.loc[:, 'RestingECG']
-
-MaxHR = df.loc[:, 'MaxHR']
-
-ExerciseAngina = df.loc[:, 'ExerciseAngina']
-
-Oldpeak = df.loc[:, 'Oldpeak']
-
-ST_Slope = df.loc[:, 'ST_Slope']
-
-HeartDisease = df.loc[:, 'HeartDisease']
-
-print(df)
 
 # Sort the DataFrame by the 'Age' column
 sorted_df = df.sort_values(by='Age')
