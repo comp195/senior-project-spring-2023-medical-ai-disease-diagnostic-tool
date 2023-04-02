@@ -1,21 +1,25 @@
 
 # **Medial AI**
 
-#  Table of Contents
-==============================
-* [Overview of the Project]
-* [Key Features]
-* [Build With]
-* [Web]
-* [Requirements]
-* [Getting Started]
-* [ScreenShots]
-* [Contribution]
-* [RoadMap]
-* [License]
-* [Contact]
-* [Specail Notes ]
-* [Acknowledgments]
+
+<details>
+ <summary> Table of Contents</summary>
+
+  - [Overview of the Project](#overview-of-the-project)
+  - [Key Features](#key-features)
+  - [Built With](#built-with)
+  - [Web](#web)
+  - [Requirements](#requirements)
+  - [Getting Started](#getting-started)
+  - [ScreenShots](#screenshots)
+  - [Contribution](#contribution)
+  - [RoadMap](#roadmap)
+  - [License](#license)
+  - [Contact](#contact)
+  - [Special Notes](#special-notes)
+  - [Acknowledgments](#acknowledgments)
+
+</details>
 
 # Senior-Project-Spring-2023-Medical-AI-Disease-Diagnostic-Tool #
 
