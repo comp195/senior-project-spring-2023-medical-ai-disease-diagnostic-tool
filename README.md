@@ -52,13 +52,19 @@ This project is a Medical AI tool that is designed to assist healthcare professi
 * Python
 * TensorFlow
 
-## Web
+## Website
 
 - PHP for the frame work of the website.
 - CSS for styling the GUI and Display.
 - Javascripting, Json, and XML to fetch , used data to store and transmit data, and to represent data
 - BootStrap framework for developing responsive forms, buttons, navigation, and other interface components.
 - API Socket to collection of socket calls that enables to perform the following primary communication functions between application programs:
+* Website Prototype Demo Update and Complete Version coming soon.
+
+![image](https://user-images.githubusercontent.com/100883284/229407039-b72248e2-5ee5-443c-8010-08bffa950e9a.png)
+![image1](https://user-images.githubusercontent.com/100883284/229407045-7195cb64-68a8-49c2-971c-ea915f6b812f.png)
+![image2](https://user-images.githubusercontent.com/100883284/229407054-0269c4f7-7967-4c05-8341-1991b403bd0d.png)
+
 ## Requirements
 
 * Microsoft Azure account
@@ -73,13 +79,20 @@ This project is a Medical AI tool that is designed to assist healthcare professi
 4. Install required dependencies using pip or conda
 5. Run the tool using the command line interface or a Python IDE
 
-# ScreenShots comming soon 
+# Dataset Visual Representation
 
-![Figure_1](https://user-images.githubusercontent.com/100883284/228694855-586b96c8-fe1d-47cf-a3a3-a98d8938bf04.png)
-![Figure_11](https://user-images.githubusercontent.com/100883284/228695268-e694584a-b7a2-4158-9e15-3c3d7b4dd2c2.png)
-![Figure_12](https://user-images.githubusercontent.com/100883284/228695281-699783c8-6eb8-4913-b8a7-982e048f7cdf.png)
-![Figure_14](https://user-images.githubusercontent.com/100883284/228695307-e08ed453-4247-4dc1-8544-9621e3b0b62e.png)
-![Figure_13](https://user-images.githubusercontent.com/100883284/228695298-96b30a00-d1cf-4d2b-8532-761db23101ea.png)
+![Up![Figure_12](https://user-images.githubusercontent.com/100883284/229406833-80534578-9c20-4a73-b86c-f161860462ec.png)![Figure_13](https://user-images.githubusercontent.com/100883284/229406834-61f53ccc-0e10-4160-9eb7-4a3062646219.png)
+![Figure_14](https://user-images.githubusercontent.com/100883284/229406836-3a2fd3c5-2f83-4a2a-8f59-a09394143315.png)
+![Figure_1](https://user-images.githubusercontent.com/100883284/229406838-8bd3a8b8-17e9-4f37-892f-3689ab23d223.png)
+![Figure_2](https://user-images.githubusercontent.com/100883284/229406841-ff210739-3cd4-4209-9a2f-61efdbda3f16.png)
+![Figure_3](https://user-images.githubusercontent.com/100883284/229406842-f133a24c-658c-4648-aaa4-8d48c8b3c307.png)
+![Figure_4](https://user-images.githubusercontent.com/100883284/229406821-e6f0a8e6-b0ca-4d56-b2df-29240770597f.png)
+![Figure_5](https://user-images.githubusercontent.com/100883284/229406825-5e4104e2-8082-400a-b3b7-1314158bdd6c.png)
+![Figure_6](https://user-images.githubusercontent.com/100883284/229406826-714ebd76-ad0e-4a54-9c34-71f817a5e776.png)
+![Figure_7](https://user-images.githubusercontent.com/100883284/229406828-4cdfb3fd-12c5-44c0-9207-d361d93c2751.png)
+![Figure_9](https://user-images.githubusercontent.com/100883284/229406830-928407b2-b830-4fe6-b8be-73e8a13c5db8.png)
+![Figure_10](https://user-images.githubusercontent.com/100883284/229406831-080c8726-5db9-4086-806e-51121f32189a.png)
+
 
 ## Contribution
 We welcome contributions to this project! If you are interested in contributing, please fork
