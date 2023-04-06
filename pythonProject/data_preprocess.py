@@ -113,6 +113,7 @@ def data_preprocess(file):
 
     #       Handle Outliers - visualization of distribution of variables and statistically
 
+    # Detect outliers using visuals
     age_data = data_load['Age']
     sns.histplot(age_data, kde=False)  # create histogram
     plt.title('Distribution of Ages')
@@ -197,8 +198,6 @@ def data_preprocess(file):
     #                                            standard deviations away from the mean)
     print(f'Outliers: {sum(outliers)}')
     data_load = data_load[~outliers]  # remove rows containing outliers from the dataset
-
-
 
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
     #                 into numbers that the model can use.
