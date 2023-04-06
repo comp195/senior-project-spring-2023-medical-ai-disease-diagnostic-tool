@@ -230,9 +230,6 @@ def data_preprocess(file):
     # Data Balancing - If there are more positive (heart disease present) cases than negative (heart disease not
     #                  present) cases, we need to oversample the minority group or undersample the majority group to fix the problem.
 
-
-
-
     print('Mansoor 04052023')
 
     # read data from CSV file
@@ -266,12 +263,10 @@ def data_preprocess(file):
     accuracy = model.score(x_test, y_test)
     print('Accuracy:', accuracy)
 
-
     print('MansoorEnd')
 
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
     #                 are redundant or don't matter.
-
 
     return data_load
 
@@ -280,11 +275,6 @@ file = data_loader()
 processed_data = data_preprocess(file)
 
 '''
-    # Data Features - Choose the most important features for the machine learning model and get rid of any features that
-    #                 are redundant or don't matter.
-
-data, info_str = data_loader()
-data_preprocess(data)
 
 # Sort the DataFrame by the 'Age' column
 sorted_df = df.sort_values(by='Age')
