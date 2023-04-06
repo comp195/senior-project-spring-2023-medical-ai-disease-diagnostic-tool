@@ -190,6 +190,14 @@ def data_preprocess(file):
     plt.ylabel('Number of Patients')
     plt.show()
 
+    # Detect outliers using the Z-score method
+    z_scores = stats.zscore(data_load.select_dtypes(include='number'))  # calculate Z-scores for all numerical columns
+    abs_z_scores = np.abs(z_scores)  # take absolute value of Z-scores
+    outliers = (abs_z_scores > 3).all(axis=1)  # Find rows where every Z-score is higher than 3. (i.e. more than 3
+    #                                            standard deviations away from the mean)
+    print(f'Outliers: {sum(outliers)}')
+    data_load = data_load[~outliers]  # remove rows containing outliers from the dataset
+
 
 
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
