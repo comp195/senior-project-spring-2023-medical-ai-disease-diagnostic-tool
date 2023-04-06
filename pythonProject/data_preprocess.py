@@ -2,11 +2,17 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import pylab as pl
+from pyexpat import model
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
 from scipy import stats
+from imblearn.under_sampling import RandomUnderSampler
+import pandas as pd
+from imblearn.over_sampling import SMOTE
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 
 
 # Preprocess the data
@@ -223,6 +229,45 @@ def data_preprocess(file):
 
     # Data Balancing - If there are more positive (heart disease present) cases than negative (heart disease not
     #                  present) cases, we need to oversample the minority group or undersample the majority group to fix the problem.
+
+
+
+
+    print('Mansoor 04052023')
+
+    # read data from CSV file
+    try:
+        df = pd.read_csv('heart.csv')
+    except FileNotFoundError:
+        print("Error: CSV file not found.")
+        exit()
+
+    # check if target column is present in data
+    if 'target' not in df.columns:
+        print("Error: 'target' column not found in CSV file.")
+        exit()
+
+    # split data into features (x) and target (y)
+    x = df.drop('target', axis=1)
+    y = df['target']
+
+    # split data into training and testing datasets
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
+
+    # apply SMOTE to training data
+    smote = SMOTE()
+    x_train_balanced, y_train_balanced = smote.fit_resample(x_train, y_train)
+
+    # train logistic regression model on balanced data
+    model = LogisticRegression()
+    model.fit(x_train_balanced, y_train_balanced)
+
+    # evaluate model on testing data
+    accuracy = model.score(x_test, y_test)
+    print('Accuracy:', accuracy)
+
+
+    print('MansoorEnd')
 
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
     #                 are redundant or don't matter.
