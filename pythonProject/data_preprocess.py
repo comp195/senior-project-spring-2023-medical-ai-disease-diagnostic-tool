@@ -221,6 +221,13 @@ def data_preprocess(file):
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
+    # Data Balancing - If there are more positive (heart disease present) cases than negative (heart disease not
+    #                  present) cases, we need to oversample the minority group or undersample the majority group to fix the problem.
+
+    # Data Features - Choose the most important features for the machine learning model and get rid of any features that
+    #                 are redundant or don't matter.
+
+
     return data_load
 
 
