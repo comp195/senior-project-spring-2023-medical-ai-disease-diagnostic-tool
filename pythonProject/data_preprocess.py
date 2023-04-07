@@ -115,7 +115,7 @@ def data_preprocess(file):
     sns.heatmap(corr_matrix, annot=True, cmap="YlGnBu")
     plt.show()
 
-    #       Handle Outliers - visualization of distribution of variables and statistically
+    #       Identify outliers - visualization of distribution of variables and statistically
 
     # Detect outliers using visuals
     age_data = data_load['Age']
@@ -256,7 +256,6 @@ def data_preprocess(file):
     print("Minimum Exercise-induced ST depressions:", min_op)
     print("Maximum Exercise-induced ST depressions:", max_op, "\n")
 
-    # Identify outliers
     numerical_data = ['Age', 'RestingBP', 'Cholesterol', 'MaxHR', 'Oldpeak']
     categorical_data = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
 
@@ -287,6 +286,12 @@ def data_preprocess(file):
 
     numerical_zscore(data_load)
     categorical_zscore(data_load)
+
+    #       Handle Outliers - Outliers may be removed or adjusted. Outliers may be removed if they are data input
+    #                         mistakes or affect model performance. You may also replace outliers with more realistic
+    #                         numbers. Capping, where extreme values are replaced with the maximum or lowest value
+    #                         within a range, or winsorization, where extreme values are replaced with data at a
+    #                         specified percentile, may achieve this.
 
     #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn
     #                       them into numbers that the model can use.
