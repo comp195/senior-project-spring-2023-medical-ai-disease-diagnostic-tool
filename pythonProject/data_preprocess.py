@@ -315,8 +315,9 @@ def data_preprocess(file):
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
-    # Data Features - Choose the most important features for the machine learning model and get rid of any features that
-    #                 are redundant or don't matter.
+    # Data Features -Choose the dataset's most important features that can be used to make predictions. To find the
+    #                most important features, you can use methods like correlation analysis, the chi-squared test, or
+    #                recursive feature elimination.
 
     return data_load
 
