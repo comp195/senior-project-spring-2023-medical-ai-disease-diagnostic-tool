@@ -79,19 +79,48 @@ This project is a Medical AI tool that is designed to assist healthcare professi
 4. Install required dependencies using pip or conda
 5. Run the tool using the command line interface or a Python IDE
 
-# Dataset Visual Representation
 
-![Up![Figure_12](https://user-images.githubusercontent.com/100883284/229406833-80534578-9c20-4a73-b86c-f161860462ec.png)![Figure_13](https://user-images.githubusercontent.com/100883284/229406834-61f53ccc-0e10-4160-9eb7-4a3062646219.png)
-![Figure_14](https://user-images.githubusercontent.com/100883284/229406836-3a2fd3c5-2f83-4a2a-8f59-a09394143315.png)
-![Figure_1](https://user-images.githubusercontent.com/100883284/229406838-8bd3a8b8-17e9-4f37-892f-3689ab23d223.png)
-![Figure_2](https://user-images.githubusercontent.com/100883284/229406841-ff210739-3cd4-4209-9a2f-61efdbda3f16.png)
-![Figure_3](https://user-images.githubusercontent.com/100883284/229406842-f133a24c-658c-4648-aaa4-8d48c8b3c307.png)
-![Figure_4](https://user-images.githubusercontent.com/100883284/229406821-e6f0a8e6-b0ca-4d56-b2df-29240770597f.png)
-![Figure_5](https://user-images.githubusercontent.com/100883284/229406825-5e4104e2-8082-400a-b3b7-1314158bdd6c.png)
-![Figure_6](https://user-images.githubusercontent.com/100883284/229406826-714ebd76-ad0e-4a54-9c34-71f817a5e776.png)
-![Figure_7](https://user-images.githubusercontent.com/100883284/229406828-4cdfb3fd-12c5-44c0-9207-d361d93c2751.png)
-![Figure_9](https://user-images.githubusercontent.com/100883284/229406830-928407b2-b830-4fe6-b8be-73e8a13c5db8.png)
-![Figure_10](https://user-images.githubusercontent.com/100883284/229406831-080c8726-5db9-4086-806e-51121f32189a.png)
+# Visual Representation of the Dataset 
+
+![1 (20)](https://user-images.githubusercontent.com/100883284/230667439-6d69f94b-aeb3-4232-8833-bcdd3ef7fc58.png)
+
+![1 (1)](https://user-images.githubusercontent.com/100883284/230667441-997ef13c-2863-48e0-b432-4abef0475976.png)
+
+![1 (2)](https://user-images.githubusercontent.com/100883284/230667442-1373bc7b-0b8c-4cea-b91a-7bc03b4330b7.png)
+
+![1 (3)](https://user-images.githubusercontent.com/100883284/230667443-db60a3a1-90bc-462f-ad5f-2bfdc40d0965.png)
+
+![1 (4)](https://user-images.githubusercontent.com/100883284/230667444-d598f22b-0e82-40a1-acfd-e4932573cd26.png)
+
+![1 (5)](https://user-images.githubusercontent.com/100883284/230667447-f7f42b45-cc05-4cc4-bd1d-636c83db87f6.png)
+
+![1 (6)](https://user-images.githubusercontent.com/100883284/230667448-1e6b7c5c-2e52-4f8f-a9fb-397e52c2314c.png)
+
+![1 (7)](https://user-images.githubusercontent.com/100883284/230667449-a706a526-81de-48a0-96ba-6fb21ad66640.png)
+
+![1 (8)](https://user-images.githubusercontent.com/100883284/230667452-922c6bae-3693-4603-bec5-b86c94931d5d.png)
+
+![1 (9)](https://user-images.githubusercontent.com/100883284/230667454-b57eeb0b-b63d-4b93-ba40-aee584581b61.png)
+
+![1 (10)](https://user-images.githubusercontent.com/100883284/230667455-93019569-6fb3-45e8-9540-8f59aca9ed9b.png)
+
+![1 (11)](https://user-images.githubusercontent.com/100883284/230667457-15eedf7d-10f9-4f11-ab79-34bc6da5be07.png)
+
+![1 (12)](https://user-images.githubusercontent.com/100883284/230667459-c410e424-5089-462a-9dc1-d07be1cc5073.png)
+
+![1 (13)](https://user-images.githubusercontent.com/100883284/230667460-51d8117c-22d9-4c22-aece-0ace8c154107.png)
+
+![1 (14)](https://user-images.githubusercontent.com/100883284/230667462-f871878a-d9f7-40cb-894d-8d1e1ddf2487.png)
+
+![1 (15)](https://user-images.githubusercontent.com/100883284/230667464-4d2c6179-2e8e-45a1-ba78-da0db86e40bf.png)
+
+![1 (16)](https://user-images.githubusercontent.com/100883284/230667467-421bb4f2-6c51-4824-adff-647668a51df0.png)
+
+![1 (17)](https://user-images.githubusercontent.com/100883284/230667470-3671323a-230a-47e2-b811-98d7e5eda72b.png)
+
+![1 (18)](https://user-images.githubusercontent.com/100883284/230667472-9ecabd35-9e76-41c5-ac81-c2a4bac2a469.png)
+
+![1 (19)](https://user-images.githubusercontent.com/100883284/230667473-a82a5341-2651-4154-9ab9-238d95b80898.png)
 
 
 ## Contribution
