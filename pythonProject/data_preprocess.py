@@ -8,9 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
 from scipy import stats
-from imblearn.under_sampling import RandomUnderSampler
 import pandas as pd
-from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
@@ -197,22 +195,27 @@ def data_preprocess(file):
     plt.ylabel('Number of Patients')
     plt.show()
 
-    # Detect outliers using the Z-score method
-    z_scores = stats.zscore(data_load.select_dtypes(include='number'))  # calculate Z-scores for all numerical columns
-    abs_z_scores = np.abs(z_scores)  # take absolute value of Z-scores
-    outliers = (abs_z_scores > 3).all(axis=1)  # Find rows where every Z-score is higher than 3. (i.e. more than 3
-    #                                            standard deviations away from the mean)
-    print(f'Outliers: {sum(outliers)}')
-    data_load = data_load[~outliers]  # remove rows containing outliers from the dataset
+    # calculate the mean, median, standard deviation, minimum, and maximum values of each column
+    mean_age = data_load['Age'].mean()
+    median_age = data_load['Age'].median()
+    std_dev_age = data_load['Age'].std()
+    min_age = data_load['Age'].min()
+    max_age = data_load['Age'].max()
 
-    # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
-    #                 into numbers that the model can use.
+    print("Mean age:", mean_age)
+    print("Median age:", median_age)
+    print("Standard deviation of age:", std_dev_age)
+    print("Minimum Age:", min_age)
+    print("Maximum Age:", max_age)
+
+    #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn
+    #                       them into numbers that the model can use.
 
     col_encode = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
     data_load_encode = pd.get_dummies(data_load, columns=col_encode)
 
-    # Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
-    #                to make sure that high-value features don't take over the model and skew the results.
+    #       Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
+    #                      to make sure that high-value features don't take over the model and skew the results.
 
     scaler = MinMaxScaler()  # scale the numerical columns of the dataset to the same range.
     cols = data_load.select_dtypes(include='number').columns.tolist()  # Pick just numerical dataset columns by
@@ -220,50 +223,12 @@ def data_preprocess(file):
     #                                                                    their column names in a list.
     data_load[cols] = scaler.fit_transform(data_load[cols])  # identify the numerical and category columns
 
-    # Data Splitting - Separate the data into sets for training and sets for testing.
+    #       Data Splitting - Separate the data into sets for training and sets for testing.
 
     x = data_load.drop('HeartDisease', axis=1)  # separate features and the target variable
     y = data_load['HeartDisease']
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
-
-    # Data Balancing - If there are more positive (heart disease present) cases than negative (heart disease not
-    #                  present) cases, we need to oversample the minority group or undersample the majority group to fix the problem.
-
-    print('Mansoor 04052023')
-
-    # read data from CSV file
-    try:
-        df = pd.read_csv('heart.csv')
-    except FileNotFoundError:
-        print("Error: CSV file not found.")
-        exit()
-
-    # check if target column is present in data
-    if 'target' not in df.columns:
-        print("Error: 'target' column not found in CSV file.")
-        exit()
-
-    # split data into features (x) and target (y)
-    x = df.drop('target', axis=1)
-    y = df['target']
-
-    # split data into training and testing datasets
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
-
-    # apply SMOTE to training data
-    smote = SMOTE()
-    x_train_balanced, y_train_balanced = smote.fit_resample(x_train, y_train)
-
-    # train logistic regression model on balanced data
-    model = LogisticRegression()
-    model.fit(x_train_balanced, y_train_balanced)
-
-    # evaluate model on testing data
-    accuracy = model.score(x_test, y_test)
-    print('Accuracy:', accuracy)
-
-    print('MansoorEnd')
 
     # Data Features - Choose the most important features for the machine learning model and get rid of any features that
     #                 are redundant or don't matter.
