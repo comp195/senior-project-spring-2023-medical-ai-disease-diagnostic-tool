@@ -256,6 +256,38 @@ def data_preprocess(file):
     print("Minimum Exercise-induced ST depressions:", min_op)
     print("Maximum Exercise-induced ST depressions:", max_op, "\n")
 
+    # Identify outliers
+    numerical_data = ['Age', 'RestingBP', 'Cholesterol', 'MaxHR', 'Oldpeak']
+    categorical_data = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
+
+    def outliers_zscore(data):
+        z_scores = stats.zscore(data)
+        abs_zscores = np.abs(z_scores)  # calculates z-scores for each value and takes the absolute values
+        threshold = 3
+        return abs_zscores > threshold  # returns a Boolean array that says for each value whether it is an outlier.
+
+    def numerical_zscore(df):
+        for col in numerical_data:  # iterates through each numerical column
+            col_data = df[col]
+            outliers = col_data[outliers_zscore(col_data)]  # applies the outliers_zscore function to each column
+            if len(outliers) > 0:
+                print(f"Outliers in {col}:")
+                print(outliers, "\n")  # prints the outliers for each column if any
+            else:
+                print(f"No outliers in {col}\n")
+
+    def categorical_zscore(df):
+        for col in categorical_data:  # iterates through each categorical column
+            col_data = df[col]
+            freq = col_data.value_counts(normalize=True)  # calculates the frequency of each category
+            if len(freq) < 10:
+                print(freq, "\n")  # prints the frequency distribution if the number of categories is less than 10
+            else:
+                print(f"Frequency distribution for {col} has too many categories to display.\n")
+
+    numerical_zscore(data_load)
+    categorical_zscore(data_load)
+
     #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn
     #                       them into numbers that the model can use.
 
