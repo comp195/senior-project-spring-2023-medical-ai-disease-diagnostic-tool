@@ -2,11 +2,17 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import pylab as pl
+from pyexpat import model
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
 from scipy import stats
+from imblearn.under_sampling import RandomUnderSampler
+import pandas as pd
+from imblearn.over_sampling import SMOTE
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 
 
 # Preprocess the data
@@ -113,6 +119,7 @@ def data_preprocess(file):
 
     #       Handle Outliers - visualization of distribution of variables and statistically
 
+    # Detect outliers using visuals
     age_data = data_load['Age']
     sns.histplot(age_data, kde=False)  # create histogram
     plt.title('Distribution of Ages')
@@ -190,7 +197,13 @@ def data_preprocess(file):
     plt.ylabel('Number of Patients')
     plt.show()
 
-
+    # Detect outliers using the Z-score method
+    z_scores = stats.zscore(data_load.select_dtypes(include='number'))  # calculate Z-scores for all numerical columns
+    abs_z_scores = np.abs(z_scores)  # take absolute value of Z-scores
+    outliers = (abs_z_scores > 3).all(axis=1)  # Find rows where every Z-score is higher than 3. (i.e. more than 3
+    #                                            standard deviations away from the mean)
+    print(f'Outliers: {sum(outliers)}')
+    data_load = data_load[~outliers]  # remove rows containing outliers from the dataset
 
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them
     #                 into numbers that the model can use.
@@ -214,6 +227,47 @@ def data_preprocess(file):
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
+    # Data Balancing - If there are more positive (heart disease present) cases than negative (heart disease not
+    #                  present) cases, we need to oversample the minority group or undersample the majority group to fix the problem.
+
+    print('Mansoor 04052023')
+
+    # read data from CSV file
+    try:
+        df = pd.read_csv('heart.csv')
+    except FileNotFoundError:
+        print("Error: CSV file not found.")
+        exit()
+
+    # check if target column is present in data
+    if 'target' not in df.columns:
+        print("Error: 'target' column not found in CSV file.")
+        exit()
+
+    # split data into features (x) and target (y)
+    x = df.drop('target', axis=1)
+    y = df['target']
+
+    # split data into training and testing datasets
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
+
+    # apply SMOTE to training data
+    smote = SMOTE()
+    x_train_balanced, y_train_balanced = smote.fit_resample(x_train, y_train)
+
+    # train logistic regression model on balanced data
+    model = LogisticRegression()
+    model.fit(x_train_balanced, y_train_balanced)
+
+    # evaluate model on testing data
+    accuracy = model.score(x_test, y_test)
+    print('Accuracy:', accuracy)
+
+    print('MansoorEnd')
+
+    # Data Features - Choose the most important features for the machine learning model and get rid of any features that
+    #                 are redundant or don't matter.
+
     return data_load
 
 
@@ -221,11 +275,6 @@ file = data_loader()
 processed_data = data_preprocess(file)
 
 '''
-    # Data Features - Choose the most important features for the machine learning model and get rid of any features that
-    #                 are redundant or don't matter.
-
-data, info_str = data_loader()
-data_preprocess(data)
 
 # Sort the DataFrame by the 'Age' column
 sorted_df = df.sort_values(by='Age')
