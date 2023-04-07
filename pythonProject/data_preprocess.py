@@ -155,7 +155,7 @@ def data_preprocess(file):
 
     fbs_data = data_load['FastingBS']
     sns.histplot(fbs_data, kde=False)
-    plt.title('Distribution of Fasting Blood Pressures')
+    plt.title('Distribution of Fasting Blood Sugars')
     plt.xlabel('Fasting Blood Pressure')
     plt.ylabel('Number of Patients')
     plt.show()
@@ -202,11 +202,59 @@ def data_preprocess(file):
     min_age = data_load['Age'].min()
     max_age = data_load['Age'].max()
 
-    print("Mean age:", mean_age)
-    print("Median age:", median_age)
-    print("Standard deviation of age:", std_dev_age)
+    print("Mean Age:", mean_age)
+    print("Median Age:", median_age)
+    print("Standard deviation of Age:", std_dev_age)
     print("Minimum Age:", min_age)
-    print("Maximum Age:", max_age)
+    print("Maximum Age:", max_age, "\n")
+
+    mean_rbp = data_load['RestingBP'].mean()
+    median_rbp = data_load['RestingBP'].median()
+    std_dev_rbp = data_load['RestingBP'].std()
+    min_rbp = data_load['RestingBP'].min()
+    max_rbp = data_load['RestingBP'].max()
+
+    print("Mean Resting Blood Pressures:", mean_rbp)
+    print("Median Resting Blood Pressures:", median_rbp)
+    print("Standard deviation of Resting Blood Pressures:", std_dev_rbp)
+    print("Minimum Resting Blood Pressures:", min_rbp)
+    print("Maximum Resting Blood Pressures:", max_rbp, "\n")
+
+    mean_chol = data_load['Cholesterol'].mean()
+    median_chol = data_load['Cholesterol'].median()
+    std_dev_chol = data_load['Cholesterol'].std()
+    min_chol = data_load['Cholesterol'].min()
+    max_chol = data_load['Cholesterol'].max()
+
+    print("Mean Cholesterol:", mean_chol)
+    print("Median Cholesterol:", median_chol)
+    print("Standard deviation of Cholesterol:", std_dev_chol)
+    print("Minimum Cholesterol:", min_chol)
+    print("Maximum Cholesterol:", max_chol, "\n")
+
+    mean_mhr = data_load['MaxHR'].mean()
+    median_mhr = data_load['MaxHR'].median()
+    std_dev_mhr = data_load['MaxHR'].std()
+    min_mhr = data_load['MaxHR'].min()
+    max_mhr = data_load['MaxHR'].max()
+
+    print("Mean Maximum Heart Rate:", mean_mhr)
+    print("Median Maximum Heart Rate:", median_mhr)
+    print("Standard deviation of Maximum Heart Rate:", std_dev_mhr)
+    print("Minimum Maximum Heart Rate:", min_mhr)
+    print("Maximum Maximum Heart Rate:", max_mhr, "\n")
+
+    mean_op = data_load['Oldpeak'].mean()
+    median_op = data_load['Oldpeak'].median()
+    std_dev_op = data_load['Oldpeak'].std()
+    min_op = data_load['Oldpeak'].min()
+    max_op = data_load['Oldpeak'].max()
+
+    print("Mean Exercise-induced ST depressions:", mean_op)
+    print("Median Exercise-induced ST depressions:", median_op)
+    print("Standard deviation of Exercise-induced ST depressions:", std_dev_op)
+    print("Minimum Exercise-induced ST depressions:", min_op)
+    print("Maximum Exercise-induced ST depressions:", max_op, "\n")
 
     #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn
     #                       them into numbers that the model can use.
