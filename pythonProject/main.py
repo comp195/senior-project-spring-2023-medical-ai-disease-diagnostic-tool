@@ -12,6 +12,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pygal
+import tensorflow as tf
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LinearRegression
+
+from scipy.stats import chi2_contingency
+
+
+
+print(tf.__version__)
+
+
 
 
 def print_hi(name):
@@ -203,16 +214,28 @@ for i, ax in enumerate(axs.flat):
         ax.set_xlabel(columns[i])
         ax.set_ylabel('Frequency')
 
-# Adjust the spacing between subplots
-plt.tight_layout()
+# Adjust the spacing between subplots to avoid title overlapping
+plt.subplots_adjust(top=0.92, hspace=0.4, wspace=0.4)
 
 # Display the figure
 plt.show()
 
 
+print('Project195')
 
+# correlation analysis
+df = pd.read_csv('heart.csv')
 
+# calculate the correlation matrix
+corr_matrix = df.corr()
 
+# display the correlation matrix
+print(corr_matrix)
 
+# select the most highly correlated features
+most_correlated = corr_matrix.nlargest(10, 'target')['target'].index
+
+# display the most highly correlated features
+print(most_correlated)
 
 

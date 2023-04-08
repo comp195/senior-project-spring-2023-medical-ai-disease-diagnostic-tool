@@ -275,6 +275,8 @@ def data_preprocess(file):
             else:
                 print(f"No outliers in {col}\n")
 
+
+
     def categorical_zscore(df):
         for col in categorical_data:  # iterates through each categorical column
             col_data = df[col]
@@ -284,8 +286,11 @@ def data_preprocess(file):
             else:
                 print(f"Frequency distribution for {col} has too many categories to display.\n")
 
+
     numerical_zscore(data_load)
     categorical_zscore(data_load)
+
+
 
     #       Handle Outliers - Outliers may be removed or adjusted. Outliers may be removed if they are data input
     #                         mistakes or affect model performance. You may also replace outliers with more realistic
@@ -357,3 +362,4 @@ print('Number of ST:', count_st')
 
     plt.show()
 '''
+
