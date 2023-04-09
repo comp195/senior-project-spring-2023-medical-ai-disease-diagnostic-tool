@@ -17,7 +17,7 @@ from sklearn.linear_model import LogisticRegression
 
 
 # Preprocess the data
-def data_preprocess(file):
+def data_preprocess(file, use_outliers=True):
     data_load = file[0]
     # Data Cleaning - remove mistakes, inconsistencies, and missing values using imputation, outlier identification,
     #                 and data deduplication.
@@ -268,17 +268,32 @@ def data_preprocess(file):
         threshold = 3
         return abs_zscores > threshold  # returns a Boolean array that says for each value whether it is an outlier.
 
-    def numerical_zscore(df):
+    def numerical_zscore(df, use_outliers=True):
         for col in numerical_data:  # iterates through each numerical column
             col_data = df[col]
-            outliers = col_data[outliers_zscore(col_data)]  # applies the outliers_zscore function to each column
-            if len(outliers) > 0:
-                print(f"Outliers in {col}:")
-                print(outliers, "\n")  # prints the outliers for each column if any
+            if use_outliers:
+                outliers = col_data[outliers_zscore(col_data)]  # applies the outliers_zscore function to each column
+                if len(outliers) > 0:
+                    print(f"Outliers in {col}:")
+                    print(outliers, "\n")  # prints the outliers for each column if any
+                    col_mean = col_data.mean()  # gets the mean of each column
+                    col_std = col_data.std()  # gets the standard deviation of each column
+                    col_min = col_mean - 3 * col_std  # Subtracting 3 times the standard deviation from the mean lowers
+                    #                                   the column's "normal" or "acceptable" values. Outliers fall
+                    #                                   below this.
+                    col_max = col_mean + 3 * col_std  # Adding 3 times the standard deviation to the mean determines a
+                    #                                   column's "normal" or "acceptable" upper limit. Outliers surpass
+                    #                                   it too.
+                    col_data = np.clip(col_data, col_min, col_max)  # capping method
+                else:
+                    print(f"No outliers in {col}\n")
             else:
-                print(f"No outliers in {col}\n")
-
-
+                print(f'Without outliers in {col}\n')
+                col_mean = col_data.mean()
+                col_std = col_data.std()
+                df = df[(df[col] >= col_mean - 3 * col_std) & (df[col] <= col_mean + 3 * col_std)]  # remove outliers
+                print(col_data.describe(), '\n')
+        return df
 
     def categorical_zscore(df):
         for col in categorical_data:  # iterates through each categorical column
@@ -304,12 +319,14 @@ def data_preprocess(file):
 
     #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn
     #                       them into numbers that the model can use.
+    # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
+    #                 numbers that the model can use.
 
     col_encode = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
     data_load_encode = pd.get_dummies(data_load, columns=col_encode)
 
-    #       Data Scaling - Make sure that all the features are the same size by putting them on the same scale.
-    #                      to make sure that high-value features don't take over the model and skew the results.
+    # Data Scaling - Make sure that all the features are the same size by putting them on the same scale to make sure
+    #                that high-value features don't take over the model and skew the results.
 
     scaler = MinMaxScaler()  # scale the numerical columns of the dataset to the same range.
     cols = data_load.select_dtypes(include='number').columns.tolist()  # Pick just numerical dataset columns by
@@ -317,7 +334,11 @@ def data_preprocess(file):
     #                                                                    their column names in a list.
     data_load[cols] = scaler.fit_transform(data_load[cols])  # identify the numerical and category columns
 
-    #       Data Splitting - Separate the data into sets for training and sets for testing.
+    # Data Features - Choose the dataset's most important features that can be used to make predictions. To find the
+    #                 most important features, you can use methods like correlation analysis, the chi-squared test,
+    #                 or recursive feature elimination.
+
+    # Data Splitting - Separate the data into sets for training and sets for testing.
 
     x = data_load.drop('HeartDisease', axis=1)  # separate features and the target variable
     y = data_load['HeartDisease']
