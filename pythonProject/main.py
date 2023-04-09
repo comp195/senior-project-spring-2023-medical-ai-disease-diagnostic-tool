@@ -18,7 +18,7 @@ from sklearn.linear_model import LinearRegression
 
 from scipy.stats import chi2_contingency
 
-
+from pythonProject.prototype import Data_Model
 
 print(tf.__version__)
 
@@ -232,10 +232,12 @@ corr_matrix = df.corr()
 # display the correlation matrix
 print(corr_matrix)
 
-# select the most highly correlated features
-most_correlated = corr_matrix.nlargest(10, 'target')['target'].index
+model = Data_Model()
+data = pd.read_csv("heart_check.csv")
+data = model.clean_data(data)
+data = data.drop('HeartDisease', axis=1)
+prediction = model.predict_with_model(data)
+print(prediction)
 
-# display the most highly correlated features
-print(most_correlated)
 
 

@@ -2,89 +2,66 @@
 
 import inline as inline
 import matplotlib
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import pandas.core.frame
 import seaborn as sns
-
+import numpy as np
+from scipy.stats import zscore
 import os
-
 from numpy import array
+from sklearn.model_selection import train_test_split
+import tensorflow as tf
+from tensorflow import keras
 
-print(os.listdir())
+from pythonProject.data_loader import data_loader
 
-import warnings
+class Data_Model:
+    model=None
+    data =None
+    def __init__(self):
+        print('init called')
+        data = pd.read_csv("heart.csv")
+        data = self.clean_data(data)
+        data.fillna(data.median(), inplace=True)
+        self.data = data
+        data_norm=data.apply(zscore)
+        x= data_norm.drop('HeartDisease',axis =1)
+        y= data['HeartDisease']
+        x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2, random_state=42)
+        model = keras.Sequential([
+            keras.layers.Dense(16, activation='relu', input_shape = (11,)),
+            keras.layers.Dense(1, activation='sigmoid')
+        ])
+        model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
+        history = model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_test, y_test))
+        score = model.evaluate(x_test, y_test, verbose=0)
+        print('Test loss:', score[0])
+        print('Test accuracy:', score[1])
+        self.model = model
+        if self.model is None:
+            print('111111111111')
 
-warnings.filterwarnings('ignore')
-
-# our dataset from kaggle
-
-dataset = pd.read_csv("heart.csv")
-
-if 'target' not in dataset.colums:
-    print("Error: 'target column not found in DataFrame")
-else:
-    print(dataset['target'].describe())
-
-# our dataframe  and object in pandas
-
-type(dataset)
-pandas.core.frame.DataFrame
-
-# dataset Shape
-dataset.shape
-(900, 10)
-
-# Print some columns
-dataset.head(15)
-
-dataset.sample(5)
-
-dataset.describe()
-
-dataset.info()
-info = ["age", "1: male, 0: female",
-        "chest pain type, 1: typical angina, 2: atypical angina, 3: non-anginal pain, 4: asymptomatic",
-        "resting blood pressure", " serum cholesterol in mg/dl", "fasting blood sugar > 120 mg/dl",
-        "resting electrocardiograph results (values 0,1,2)", " maximum heart rate achieved",
-        "exercise induced angina", "oldpeak = ST depression induced by exercise relative to rest",
-        "the slope of the peak exercise ST segment", "number of major vessels (0-3) colored by fluoroscopy",
-        "thal: 3 = normal; 6 = fixed defect; 7 = reversible defect"]
-
-for i in range(len(info)):
-    print(dataset.columns[i] + ":\t\t\t" + info[i])
-
-    dataset["target"].describe()
-    print(dataset["target"].describe())
-    print(dataset.columns)
-
-    dataset["target"].unique()
-    array([1, 0])
-
-    print(dataset.corr()["target"].abs().sort_values(ascending=False))
-
-    y = dataset["target"]
-    sns.countplot(y)
-
-    target_temp = dataset.target.value_counts()
-    print(target_temp)
-
-    print("Percentage of patience without heart problems: " + str(round(target_temp[0] * 100 / 303, 2)))
-    print("Percentage of patience with heart problems: " + str(round(target_temp[1] * 100 / 303, 2)))
+    def predict_with_model(self, data):
+        # function takes in data and returns the predictions for this data.
+        # if there is missing value in the data it will autofill it.
+        if self.model is None:
+            print('model is None')
+            return None
+        data.fillna(self.data.median(), inplace=True)
+        return self.model.predict(data)
+    def clean_data (self, data):
+        sex_mapping = {'M': 0, 'F': 1}
+        ST_Slope_mapping = {'Flat': 0, 'Up': 1, 'Down': -1}
+        ChestPainType_mapping = {'ASY': 0, 'NAP': 20, 'ATA': 50, 'TA': 70}
+        ExerciseAngina_mapping = {'N': 0, 'Y': 1}
+        RestingECG_mapping = {'Normal': 0, 'ST': 1}
+        data['RestingECG'] = data['RestingECG'].map(RestingECG_mapping)
+        data['ExerciseAngina'] = data['ExerciseAngina'].map(ExerciseAngina_mapping)
+        data['ChestPainType'] = data['ChestPainType'].map(ChestPainType_mapping)
+        data['ST_Slope'] = data['ST_Slope'].map(ST_Slope_mapping)
+        data['Sex'] = data['Sex'].map(sex_mapping)
+        return data
 
 
-    dataset["sex"].unique()
-    array([1, 0])
 
-    sns.barplot(dataset["sex"], y)
 
-    dataset["cp"].unique()
-    sns.barplot(dataset["cp"], y)
-    dataset["fbs"].describe()
-    dataset["fbs"].unique()
-    sns.barplot(dataset["fbs"], y)
-    dataset["restecg"].unique()
-    sns.barplot(dataset["restecg"], y)
-    dataset["exang"].unique()
-    sns.barplot(dataset["exang"], y)
