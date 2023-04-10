@@ -13,7 +13,7 @@ import seaborn as sns
 from scipy import stats
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression
 
 
 # Preprocess the data
