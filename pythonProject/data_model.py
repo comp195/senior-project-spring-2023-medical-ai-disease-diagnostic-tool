@@ -15,6 +15,15 @@ from tensorflow import keras
 
 from pythonProject.data_loader import data_loader
 
+
+data = pd.read_csv('training_data.csv')
+
+X_train = data.drop('HeartDisease', axis=1)
+y_train = data['HeartDisease']
+
+
+
+'''
 class Data_Model:
     model=None
     data =None
@@ -61,7 +70,7 @@ class Data_Model:
         data['ST_Slope'] = data['ST_Slope'].map(ST_Slope_mapping)
         data['Sex'] = data['Sex'].map(sex_mapping)
         return data
-
+'''
 
 
 

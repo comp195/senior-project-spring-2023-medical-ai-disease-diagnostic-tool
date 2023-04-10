@@ -366,7 +366,10 @@ def data_preprocess(file, use_outliers=True):
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
-    return data_load
+    train_data = pd.concat([x_train, y_train], axis=1)
+    train_data.to_csv('training_data.csv', index=False)
+
+    return x_train, y_train
 
 
 file = data_loader()
