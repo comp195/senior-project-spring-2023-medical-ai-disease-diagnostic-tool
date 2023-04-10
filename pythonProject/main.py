@@ -18,7 +18,7 @@ from sklearn.linear_model import LinearRegression
 
 from scipy.stats import chi2_contingency
 
-from pythonProject.prototype import Data_Model
+from pythonProject.data_model import Data_Model
 
 print(tf.__version__)
 
