@@ -345,6 +345,20 @@ def data_preprocess(file, use_outliers=True):
     corr_with_target = corr_matrix['HeartDisease'].sort_values(ascending=False)
     print(corr_with_target)
 
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+    lr = LogisticRegression(max_iter=1000)
+
+    # Instantiate RFE object and fit the data
+    rfe = RFE(estimator=lr, n_features_to_select=5)
+    X = data_load_encode.drop(columns=['HeartDisease'])
+    y = data_load_encode['HeartDisease']
+    rfe.fit(X, y)
+
+    # Print the rankings of each feature
+    print('RFE Ranking:')
+    for i, rank in enumerate(rfe.ranking_):
+        print(f'Feature {i + 1}: {X.columns[i]} - Rank {rank}')
+
     # Data Splitting - Separate the data into sets for training and sets for testing.
 
     x = data_load.drop('HeartDisease', axis=1)  # separate features and the target variable
