@@ -1,18 +1,12 @@
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import pylab as pl
-from pyexpat import model
-
 from scipy.stats import chi2_contingency
 from sklearn.feature_selection import RFE
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
 from scipy import stats
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
 
@@ -259,6 +253,12 @@ def data_preprocess(file, use_outliers=True):
     print("Minimum Exercise-induced ST depressions:", min_op)
     print("Maximum Exercise-induced ST depressions:", max_op, "\n")
 
+    #       Handle Outliers - Outliers may be removed or adjusted. Outliers may be removed if they are data input
+    #                         mistakes or affect model performance. You may also replace outliers with more realistic
+    #                         numbers. Capping, where extreme values are replaced with the maximum or lowest value
+    #                         within a range, or winsorization, where extreme values are replaced with data at a
+    #                         specified percentile, may achieve this.
+
     numerical_data = ['Age', 'RestingBP', 'Cholesterol', 'MaxHR', 'Oldpeak']
     categorical_data = ['Sex', 'ChestPainType', 'RestingECG', 'ExerciseAngina', 'ST_Slope']
 
@@ -304,21 +304,9 @@ def data_preprocess(file, use_outliers=True):
             else:
                 print(f"Frequency distribution for {col} has too many categories to display.\n")
 
-
     numerical_zscore(data_load)
     categorical_zscore(data_load)
 
-
-
-
-    #       Handle Outliers - Outliers may be removed or adjusted. Outliers may be removed if they are data input
-    #                         mistakes or affect model performance. You may also replace outliers with more realistic
-    #                         numbers. Capping, where extreme values are replaced with the maximum or lowest value
-    #                         within a range, or winsorization, where extreme values are replaced with data at a
-    #                         specified percentile, may achieve this.
-
-    #       Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn
-    #                       them into numbers that the model can use.
     # Data Encoding - If the dataset has categorical features, like gender or type of disease, you should turn them into
     #                 numbers that the model can use.
 
@@ -337,49 +325,72 @@ def data_preprocess(file, use_outliers=True):
     # Data Features - Choose the dataset's most important features that can be used to make predictions. To find the
     #                 most important features, you can use methods like correlation analysis, the chi-squared test,
     #                 or recursive feature elimination.
-
-    # Data Splitting - Separate the data into sets for training and sets for testing.
-
-    x = data_load.drop('HeartDisease', axis=1)  # separate features and the target variable
-    y = data_load['HeartDisease']
-
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
-
-    # Data Features -Choose the dataset's most important features that can be used to make predictions. To find the
-    #                most important features, you can use methods like correlation analysis, the chi-squared test, or
-    #                recursive feature elimination.
-
     print('Chi-Squared Test >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
-    # Load the Heart Disease dataset
-    df = pd.read_csv('heart.csv')
-    # Select the categorical or columns features
-    columns = ['Age', 'Sex', 'ChestPainType', 'RestingBP', 'Cholesterol', 'FastingBS',
-               'RestingECG', 'MaxHR', 'ExerciseAngina', 'Oldpeak', 'ST_Slope', 'HeartDisease']
     # Loop through all pairs of categorical features and calculate the chi-square statistic and p-value
-    for i in range(len(columns)):
-        for j in range(i + 1, len(columns)):
-            contingency_table = pd.crosstab(df[columns[i]], df[columns[j]])
-            chi2, p, dof, expected = chi2_contingency(contingency_table)
-            print(f'Chi-square test between {columns[i]} and {columns[j]}:')
-            print(f'    Chi-square statistic = {chi2:.2f}')
-            print(f'    p-value = {p:.5f}')
-            print(f'    Degrees of freedom = {dof}')
+    for i in col_encode:
+        contingency_table = pd.crosstab(data_load[i], data_load['HeartDisease'])
+        chi2, p, dof, expected = chi2_contingency(contingency_table)
+        print(f'{i}: Chi-square test = {chi2}, p = {p}')
 
     print('Correlation Analysis >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
-    # load the heart disease dataset
-    df = pd.read_csv('heart.csv')
-    # calculate the correlation matrix
-    corr_matrix = df.corr()
-    # display the correlation matrix
-    print(corr_matrix)
-    # select the most highly correlated features
-    most_correlated = corr_matrix.nlargest(10, 'HeartDisease')['HeartDisease'].index
-    # display the most highly correlated features
-    print(most_correlated)
+    corr_matrix = data_load_encode.corr()  # calculate the correlation matrix
+    corr_with_target = corr_matrix['HeartDisease'].sort_values(ascending=False)
+    print(corr_with_target)
 
-    # Create sample dataframe
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+    lr = LogisticRegression(max_iter=1000)
+
+    # Instantiate RFE object and fit the data
+    rfe = RFE(estimator=lr, n_features_to_select=5)
+    X = data_load_encode.drop(columns=['HeartDisease'])
+    y = data_load_encode['HeartDisease']
+    rfe.fit(X, y)
+
+    # Print the rankings of each feature
+    print('RFE Ranking:')
+    for i, rank in enumerate(rfe.ranking_):
+        print(f'Feature {i + 1}: {X.columns[i]} - Rank {rank}')
+
+
+file = data_loader()
+data_preprocess(file)
+
+'''
+
+# Sort the DataFrame by the 'Age' column
+sorted_df = df.sort_values(by='Age')
+
+# Identify the high and low values for the 'Cholesterol' column
+low_value = sorted_df['Cholesterol'].min()
+high_value = sorted_df['Cholesterol'].max()
+
+# Identify the number of 'normal' and 'ST' values in the 'ST_Slope' column
+
+count_normal = sorted_df['RestingECG'].value_counts()['Normal']
+count_st = sorted_df['RestingECG'].value_counts()['ST']
+count_lvh = sorted_df['RestingECG'].value_counts()['LVH']
+
+print('Lowest Cholesterol:', low_value)
+print('Highest Cholesterol:', high_value)
+print('Number of normal:', count_normal)
+print('Number of ST:', count_st')
+
+    # create a figure with subplots for each column
+    fig, axs = plt.subplots(nrows=4, ncols=3, figsize=(15, 10))
+    plt.subplots_adjust(hspace=0.5)
+
+    # loop over each column and plot a histogram
+    for i, col in enumerate(data_load.columns[:-1]):
+        sns.histplot(data_load[col], kde=False, ax=axs[i // 3, i % 3])
+        axs[i // 3, i % 3].set_title(f'Distribution of {col}')
+        axs[i // 3, i % 3].set_xlabel(col)
+        axs[i // 3, i % 3].set_ylabel('Number of Patients')
+
+    plt.show()
+    
+     # Create sample dataframe
     data = {'Age': [1.000000, 0.254078, -0.236358, 0.211500, -0.404093, 0.266694, 0.319918],
             'RestingBP': [0.254078, 1.000000, 0.102408, 0.021684, -0.126433, 0.142644, 0.052769],
             'Cholesterol': [-0.236358, 0.102408, 1.000000, 0.143055, -0.009940, 0.012608, -0.317407],
@@ -515,45 +526,17 @@ def data_preprocess(file, use_outliers=True):
 
     # Show the chart
     plt.show()
+    
+        # Data Splitting - Separate the data into sets for training and sets for testing.
 
+    x = data_load.drop('HeartDisease', axis=1)  # separate features and the target variable
+    y = data_load['HeartDisease']
 
-    return data_load
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
+    train_data = pd.concat([x_train, y_train], axis=1)
+    train_data.to_csv('training_data.csv', index=False)
 
-file = data_loader()
-processed_data = data_preprocess(file)
+    return x_train, y_train
 
 '''
-
-# Sort the DataFrame by the 'Age' column
-sorted_df = df.sort_values(by='Age')
-
-# Identify the high and low values for the 'Cholesterol' column
-low_value = sorted_df['Cholesterol'].min()
-high_value = sorted_df['Cholesterol'].max()
-
-# Identify the number of 'normal' and 'ST' values in the 'ST_Slope' column
-
-count_normal = sorted_df['RestingECG'].value_counts()['Normal']
-count_st = sorted_df['RestingECG'].value_counts()['ST']
-count_lvh = sorted_df['RestingECG'].value_counts()['LVH']
-
-print('Lowest Cholesterol:', low_value)
-print('Highest Cholesterol:', high_value)
-print('Number of normal:', count_normal)
-print('Number of ST:', count_st')
-
-    # create a figure with subplots for each column
-    fig, axs = plt.subplots(nrows=4, ncols=3, figsize=(15, 10))
-    plt.subplots_adjust(hspace=0.5)
-
-    # loop over each column and plot a histogram
-    for i, col in enumerate(data_load.columns[:-1]):
-        sns.histplot(data_load[col], kde=False, ax=axs[i // 3, i % 3])
-        axs[i // 3, i % 3].set_title(f'Distribution of {col}')
-        axs[i // 3, i % 3].set_xlabel(col)
-        axs[i // 3, i % 3].set_ylabel('Number of Patients')
-
-    plt.show()
-'''
-
