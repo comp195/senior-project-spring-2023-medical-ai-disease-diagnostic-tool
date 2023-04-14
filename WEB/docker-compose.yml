@@ -1,0 +1,11 @@
+version: '3'
+services:
+  webserver:
+    build: .
+    ports:
+      - "50195:80"
+    volumes:
+      - ./:/var/www/html
+      - ../MedicalAIDiseaseDiagnostic/:/var/www/html/finalp
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal
