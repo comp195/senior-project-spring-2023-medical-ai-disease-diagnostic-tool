@@ -3,7 +3,7 @@ services:
   webserver:
     build: .
     ports:
-      - "51195:80"
+      - "50195:80"
     volumes:
       - ./:/var/www/html
       - ../MedicalAIDiseaseDiagnostic/:/var/www/html/finalp

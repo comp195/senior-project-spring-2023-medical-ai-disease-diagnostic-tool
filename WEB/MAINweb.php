@@ -408,6 +408,7 @@
         if (event.target !== OutputenlargedBox) {
             OutputenlargedBox.parentElement.removeChild(OutputenlargedBox);
         }
+
     });
 </script>
 
@@ -418,59 +419,17 @@
     <p>Copyright &copy;UOP 2023</p>
 </footer>
 
-<!-- Graph scatt OUTPUT HERE -->
-<?php
-
-// Define the Python code to generate the graph
-$python_code = '
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-df = pd.read_csv("heart.csv")
-
-sns.scatterplot(data=df, x="Cholesterol", y="RestingBP", hue="Age", style="Sex", palette="coolwarm")
-
-plt.title("Resting Blood Pressure vs Cholesterol")
-plt.xlabel("Cholesterol")
-plt.ylabel("Resting Blood Pressure")
-
-plt.savefig("graph.png")
-';
-
-// Execute the Python code using the `system` function
-system('python -c "'. $python_code .'"');
-
-// Display the image in the web page
-echo '<img src="graph.png" alt="Graph">';
-
-?>
 
 <!-- Graph scatt OUTPUT HERE -->
 <?php
+$command ='ls';
 
-// Define the Python code to generate the graph
-$python_code = '
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-df = pd.read_csv("' . __DIR__ . '/heart.csv")
-
-ax = sns.scatterplot(data=df, x="Cholesterol", y="RestingBP", hue="Age", style="Sex", palette="coolwarm")
-
-ax.set_title("Resting Blood Pressure vs Cholesterol")
-ax.set_xlabel("Cholesterol")
-ax.set_ylabel("Resting Blood Pressure")
-
-plt.savefig("graph.png")
-';
-
-// Execute the Python code using the `system` function
-system('python -c "'. $python_code .'"');
-
-// Display the image in the web page
-echo '<img src="graph.png" alt="Graph">';
+echo exec (command , $out, $status);
+/*
+$command = 'python3 WEB/graph.py';
+$output = shell_exec($command);
+echo 'hello';
+*/
 
 ?>
 
