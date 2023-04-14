@@ -11,9 +11,15 @@ corr_features = pd.read_csv('corr_features.csv')['corr_features'].tolist()
 chi2_features = pd.read_csv('chi2_features.csv')['chi2_features'].tolist()
 rfe_features = pd.read_csv('rfe_features.csv')['rfe_features'].tolist()
 
+# Create a dictionary containing the names and lists of different feature sets
+feature_sets = {
+    'all_features': processed_data.drop('HeartDisease', axis=1).columns.tolist(),   # All features in the dataset
+    'corr_features': corr_features,  # Top 10 features based on correlation
+    'chi_features': chi2_features,  # Top 10 features based on Chi-squared test
+    'rfe_features': rfe_features,  # Top 10 features based on Recursive Feature Elimination
+}
 
-X_train = data.drop('HeartDisease', axis=1)
-y_train = data['HeartDisease']
+
 
 '''
 class Data_Model:
