@@ -357,9 +357,9 @@ raw_data = data_loader()[0]
 processed_data, corr_features, chi2_features, rfe_features = data_preprocess(raw_data)
 
 processed_data.to_csv('processed_data.csv', index=False)
-pd.DataFrame({'corr_features': corr_features}).to_csv('corr_features.csv', index=False)
-pd.DataFrame({'chi2_features.to_csv': chi2_features}).to_csv('chi2_features.csv', index=False)
-pd.DataFrame({'rfe_features.to_csv': rfe_features}).to_csv('rfe_features.csv', index=False)
+pd.DataFrame(corr_features).to_csv('corr_features.csv', header=False, index=False)
+pd.DataFrame({'chi2_features': chi2_features}).to_csv('chi2_features.csv', header=False, index=False)
+pd.DataFrame({'rfe_features': rfe_features}).to_csv('rfe_features.csv', header=False, index=False)
 
 '''
 
