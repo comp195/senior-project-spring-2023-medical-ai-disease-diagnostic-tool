@@ -1,19 +1,13 @@
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import pylab as pl
-from pyexpat import model
-
 from scipy.stats import chi2_contingency
 from sklearn.feature_selection import RFE
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
 from scipy import stats
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
 
 
 # Preprocess the data
@@ -359,21 +353,9 @@ def data_preprocess(file, use_outliers=True):
     for i, rank in enumerate(rfe.ranking_):
         print(f'Feature {i + 1}: {X.columns[i]} - Rank {rank}')
 
-    # Data Splitting - Separate the data into sets for training and sets for testing.
-
-    x = data_load.drop('HeartDisease', axis=1)  # separate features and the target variable
-    y = data_load['HeartDisease']
-
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
-
-    train_data = pd.concat([x_train, y_train], axis=1)
-    train_data.to_csv('training_data.csv', index=False)
-
-    return x_train, y_train
-
 
 file = data_loader()
-processed_data = data_preprocess(file)
+data_preprocess(file)
 
 '''
 
@@ -544,5 +526,17 @@ print('Number of ST:', count_st')
 
     # Show the chart
     plt.show()
+    
+        # Data Splitting - Separate the data into sets for training and sets for testing.
+
+    x = data_load.drop('HeartDisease', axis=1)  # separate features and the target variable
+    y = data_load['HeartDisease']
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
+
+    train_data = pd.concat([x_train, y_train], axis=1)
+    train_data.to_csv('training_data.csv', index=False)
+
+    return x_train, y_train
 
 '''

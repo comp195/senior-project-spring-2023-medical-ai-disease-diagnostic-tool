@@ -1,11 +1,5 @@
 import numpy as np
 import pandas as pd
-import sklearn
-import matplotlib.pyplot as plt
-import seaborn as sns
-# import tensorflow as tf
-# import keras
-import torch
 import os
 
 print(os.getcwd(), "\n")
@@ -24,7 +18,5 @@ def data_loader():
 
     return data, info_str
 
-'''''
-data, info_str = data_loader()
-print(data['FastingBS'])
-'''
+
+data, info = data_loader()
