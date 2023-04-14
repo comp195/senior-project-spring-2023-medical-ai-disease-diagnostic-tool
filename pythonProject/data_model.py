@@ -20,6 +20,22 @@ feature_sets = {
 }
 print(feature_sets)
 
+# Iterate through the feature sets
+for name, features in feature_sets.items():
+    X = processed_data[features]  # Choose the features that belong to the current set of features.
+    y = processed_data['HeartDisease']  # Set the term 'HeartDisease' as the goal.
+
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    model = LogisticRegression()  # Put the logistic regression model into action
+    model.fit(X_train, y_train)  # Use the training data to fit the model.
+
+    y_pred = model.predict(X_test)  # Make predictions based on the test results
+    accuracy = accuracy_score(y_test, y_pred)  # Figure out how accurate the model's predictions are.
+
+    print(f"Accuracy for {name}: {accuracy}")  # Print the accuracy for the current feature set
+
 '''
 class Data_Model:
     model=None
