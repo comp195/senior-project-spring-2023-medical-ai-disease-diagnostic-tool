@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import chi2_contingency
-from sklearn.feature_selection import RFE
+from sklearn.feature_selection import RFE, SelectKBest, chi2
 from sklearn.preprocessing import MinMaxScaler
 from data_loader import data_loader
 import seaborn as sns
@@ -11,8 +11,8 @@ from sklearn.linear_model import LogisticRegression
 
 
 # Preprocess the data
-def data_preprocess(file, use_outliers=True):
-    data_load = file[0]
+def data_preprocess(df, use_outliers=True):
+    data_load = df
     # Data Cleaning - remove mistakes, inconsistencies, and missing values using imputation, outlier identification,
     #                 and data deduplication.
 
@@ -106,10 +106,6 @@ def data_preprocess(file, use_outliers=True):
     plt.xlabel('The slope of the peak exercise ST segment')
     plt.ylabel('Number of Patients with Heart Disease')
     plt.title('Relationship')
-    plt.show()
-
-    corr_matrix = data_load.corr()
-    sns.heatmap(corr_matrix, annot=True, cmap="YlGnBu")
     plt.show()
 
     #       Identify outliers - visualization of distribution of variables and statistically
@@ -316,11 +312,9 @@ def data_preprocess(file, use_outliers=True):
     # Data Scaling - Make sure that all the features are the same size by putting them on the same scale to make sure
     #                that high-value features don't take over the model and skew the results.
 
-    scaler = MinMaxScaler()  # scale the numerical columns of the dataset to the same range.
-    cols = data_load.select_dtypes(include='number').columns.tolist()  # Pick just numerical dataset columns by
-    #                                                                    checking for numerical data types and saving
-    #                                                                    their column names in a list.
-    data_load[cols] = scaler.fit_transform(data_load[cols])  # identify the numerical and category columns
+    numerical_features = ['Age', 'RestingBP', 'Cholesterol', 'MaxHR', 'Oldpeak']
+    scaler = MinMaxScaler(feature_range=(0, 1))  # scale the numerical columns of the dataset to the same range.
+    data_load_encode[numerical_features] = scaler.fit_transform(data_load_encode[numerical_features])
 
     # Data Features - Choose the dataset's most important features that can be used to make predictions. To find the
     #                 most important features, you can use methods like correlation analysis, the chi-squared test,
@@ -328,34 +322,38 @@ def data_preprocess(file, use_outliers=True):
     print('Chi-Squared Test >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
     # Loop through all pairs of categorical features and calculate the chi-square statistic and p-value
-    for i in col_encode:
-        contingency_table = pd.crosstab(data_load[i], data_load['HeartDisease'])
-        chi2, p, dof, expected = chi2_contingency(contingency_table)
-        print(f'{i}: Chi-square test = {chi2}, p = {p}')
+    X = data_load_encode.drop("HeartDisease", axis=1)
+    y = data_load_encode["HeartDisease"]
+    chi2_selector = SelectKBest(chi2, k=10)
+    chi2_selector.fit(X, y)
+    chi2_features = X.columns[chi2_selector.get_support()].tolist()
+    print("Top 10 features using Chi-Squared Test:", chi2_features)
 
     print('Correlation Analysis >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
 
     corr_matrix = data_load_encode.corr()  # calculate the correlation matrix
-    corr_with_target = corr_matrix['HeartDisease'].sort_values(ascending=False)
-    print(corr_with_target)
+    print("Correlation Matrix:")
+    print(corr_matrix)
+    plt.figure(figsize=(20, 20))
+    sns.heatmap(corr_matrix, annot=True, cmap="coolwarm")
+    plt.title("Feature Correlations")
+    plt.show()
+
+    target_corr = corr_matrix["HeartDisease"].drop("HeartDisease", axis=0)
+    corr_features = target_corr.abs().sort_values(ascending=False).head(10).index.tolist()
+    print("Top 10 features using the correlation matrix:", corr_features)
 
     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-    lr = LogisticRegression(max_iter=1000)
+    model = LogisticRegression(solver='liblinear')
+    rfe = RFE(model, n_features_to_select=10)
+    rfe = rfe.fit(X, y)
+    rfe_features = X.columns[rfe.get_support()].tolist()
+    print("Top 10 features using Recursive Feature Elimination:", rfe_features)
 
-    # Instantiate RFE object and fit the data
-    rfe = RFE(estimator=lr, n_features_to_select=5)
-    X = data_load_encode.drop(columns=['HeartDisease'])
-    y = data_load_encode['HeartDisease']
-    rfe.fit(X, y)
-
-    # Print the rankings of each feature
-    print('RFE Ranking:')
-    for i, rank in enumerate(rfe.ranking_):
-        print(f'Feature {i + 1}: {X.columns[i]} - Rank {rank}')
+    return data_load_encode, corr_features, chi2_features, rfe_features
 
 
-file = data_loader()
-data_preprocess(file)
+processed_data, corr_features, chi2_features, rfe_features = data_preprocess(data_loader()[0])
 
 '''
 
