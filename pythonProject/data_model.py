@@ -1,27 +1,19 @@
 # Libraries we need for this project
 
-import inline as inline
-import matplotlib
 import pandas as pd
-import pandas.core.frame
-import seaborn as sns
-import numpy as np
-from scipy.stats import zscore
-import os
-from numpy import array
 from sklearn.model_selection import train_test_split
-import tensorflow as tf
-from tensorflow import keras
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 
-from pythonProject.data_loader import data_loader
+# Load the preprocessed data and selected features from the CSV files
+processed_data = pd.read_csv('processed_data.csv')
+corr_features = pd.read_csv('corr_features.csv')['corr_features'].tolist()
+chi2_features = pd.read_csv('chi2_features.csv')['chi2_features'].tolist()
+rfe_features = pd.read_csv('rfe_features.csv')['rfe_features'].tolist()
 
-
-data = pd.read_csv('training_data.csv')
 
 X_train = data.drop('HeartDisease', axis=1)
 y_train = data['HeartDisease']
-
-
 
 '''
 class Data_Model:
@@ -71,6 +63,3 @@ class Data_Model:
         data['Sex'] = data['Sex'].map(sex_mapping)
         return data
 '''
-
-
-
