@@ -353,7 +353,13 @@ def data_preprocess(df, use_outliers=True):
     return data_load_encode, corr_features, chi2_features, rfe_features
 
 
-processed_data, corr_features, chi2_features, rfe_features = data_preprocess(data_loader()[0])
+raw_data = data_loader()[0]
+processed_data, corr_features, chi2_features, rfe_features = data_preprocess(raw_data)
+
+processed_data.to_csv('processed_data.csv', index=False)
+pd.DataFrame({'corr_features': corr_features}).to_csv('corr_features.csv', index=False)
+pd.DataFrame({'chi2_features.to_csv': chi2_features}).to_csv('chi2_features.csv', index=False)
+pd.DataFrame({'rfe_features.to_csv': rfe_features}).to_csv('rfe_features.csv', index=False)
 
 '''
 
