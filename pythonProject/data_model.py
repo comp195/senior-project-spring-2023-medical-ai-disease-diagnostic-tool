@@ -1,6 +1,7 @@
 # Libraries we need for this project
 
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
@@ -28,11 +29,18 @@ for name, features in feature_sets.items():
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    model = LogisticRegression()  # Put the logistic regression model into action
-    model.fit(X_train, y_train)  # Use the training data to fit the model.
+    lr_model = LogisticRegression()  # Put the logistic regression model into action
+    lr_model.fit(X_train, y_train)  # Use the training data to fit the model.
 
-    y_pred = model.predict(X_test)  # Make predictions based on the test results
-    accuracy = accuracy_score(y_test, y_pred)  # Figure out how accurate the model's predictions are.
+    lr_y_pred = lr_model.predict(X_test)  # Make predictions based on the test results
+    lr_accuracy = accuracy_score(y_test, lr_y_pred)  # Figure out how accurate the model's predictions are.
 
-    print(f"Accuracy for {name}: {accuracy}")  # Print the accuracy for the current feature set
+    rf_model = RandomForestClassifier()
+    rf_model.fit(X_train, y_train)
+
+    rf_y_pred = rf_model.predict(X_test)
+    rf_accuracy = accuracy_score(y_test, rf_y_pred) #
+
+    print(f"Accuracy for {name}(Logistic Regression): {lr_accuracy}")  # Print the accuracy for the current feature set
+    print(f"Accuracy for {name} (Random Forest): {rf_accuracy}")
 
