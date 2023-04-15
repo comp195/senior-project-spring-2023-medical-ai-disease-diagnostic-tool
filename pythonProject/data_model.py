@@ -47,38 +47,41 @@ for name, features in feature_sets.items():
     if lr_accuracy > highest_scores['Logistic Regression']:
         highest_scores['Logistic Regression'] = lr_accuracy
 
-    rf_model = RandomForestClassifier()
-    rf_model.fit(X_train, y_train)
+    rf_model = RandomForestClassifier()  # Create a random forest classifier model instance
+    rf_model.fit(X_train, y_train)  # Train the random forest classifier model on the training data
 
-    rf_y_pred = rf_model.predict(X_test)
-    rf_accuracy = accuracy_score(y_test, rf_y_pred)
+    rf_y_pred = rf_model.predict(X_test)  # Use the random forest classifier model to make predictions on the test data
+    rf_accuracy = accuracy_score(y_test, rf_y_pred)  # Calculate the accuracy of the random forest's predictions
 
     if rf_accuracy > highest_scores['Random Forest']:
         highest_scores['Random Forest'] = rf_accuracy
 
-    nb_model = GaussianNB()
-    nb_model.fit(X_train,y_train)
+    nb_model = GaussianNB()  # Create a naive bayes model instance
+    nb_model.fit(X_train, y_train)  # Train the naive bayes model on the training data
 
-    nb_y_pred = nb_model.predict(X_test)
-    nb_accuracy = accuracy_score(y_test, nb_y_pred)
+    nb_y_pred = nb_model.predict(X_test)  # Use the naive bayes model to make predictions on the test data
+    nb_accuracy = accuracy_score(y_test, nb_y_pred)  # Calculate the accuracy of the naive bayes model's predictions
 
     if nb_accuracy > highest_scores['Naive Bayes']:
         highest_scores['Naive Bayes'] = nb_accuracy
 
     print(f"Accuracy for {name}(Logistic Regression): {lr_accuracy}")  # Print the accuracy for the current feature set
-    print(f"Accuracy for {name} (Random Forest): {rf_accuracy}")
-    print(f"Accuracy for {name} (Naive Bayes): {nb_accuracy}")
+    print(f"Accuracy for {name} (Random Forest): {rf_accuracy}")  # Print the accuracy of the random forest model
+    print(f"Accuracy for {name} (Naive Bayes): {nb_accuracy}")  # Print the accuracy for the Naive Bayes model
 
+    # Add the highest accuracy score for the current feature set and model to the dictionary
     highest_scores[f"{name}(Logistic Regression)"] = lr_accuracy
     highest_scores[f"{name}(Random Forest)"] = rf_accuracy
     highest_scores[f"{name}(Naive Bayes)"] = nb_accuracy
 
-highest_accuracy = max(highest_scores, key=highest_scores.get)
+highest_accuracy = max(highest_scores, key=highest_scores.get)  # Find the model and feature set with the highest
+#                                                                 accuracy score
 
+# Create a bar plot with the accuracy scores and model/feature set names
 plt.figure(figsize=(10, 8))
 sns.barplot(x=list(highest_scores.values()), y=list(highest_scores.keys()))
 plt.title(f"Highest accuracy: {highest_accuracy}: {highest_scores[highest_accuracy]}")
 plt.xlabel("Accuracy")
 plt.ylabel("Model and Feature Set")
 plt.show()
-plt.tight_layout()
+plt.tight_layout()  # Add tight layout to the plot to prevent overlapping of labels and titles
