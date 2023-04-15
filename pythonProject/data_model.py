@@ -39,7 +39,7 @@ for name, features in feature_sets.items():
     rf_model.fit(X_train, y_train)
 
     rf_y_pred = rf_model.predict(X_test)
-    rf_accuracy = accuracy_score(y_test, rf_y_pred)
+    rf_accuracy = accuracy_score(y_test, rf_y_pred) #
 
     print(f"Accuracy for {name}(Logistic Regression): {lr_accuracy}")  # Print the accuracy for the current feature set
     print(f"Accuracy for {name} (Random Forest): {rf_accuracy}")
