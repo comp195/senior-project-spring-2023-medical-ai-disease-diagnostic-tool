@@ -83,6 +83,16 @@ This project is a Medical AI tool that is designed to assist healthcare professi
 4. Install required dependencies using pip or conda
 5. Run the tool using the command line interface or a Python IDE
 
+# Visual Representation of the Dataset base on Clean cvs data
+
+![Figure](https://user-images.githubusercontent.com/100883284/232332563-32ce0db8-4868-4199-b44c-05f07190f623.png)
+
+![Figure0](https://user-images.githubusercontent.com/100883284/232332566-c717d9a4-e87c-4ded-a714-3090cc64e3df.png)
+
+![Figure01](https://user-images.githubusercontent.com/100883284/232332567-a8a13aa4-e821-44ed-a3ef-3d1809325895.png)
+
+![Figure02](https://user-images.githubusercontent.com/100883284/232332571-fce77a78-43ac-4400-bb16-30392128bb7a.png)
+
 
 # Visual Representation of the Dataset 
 
