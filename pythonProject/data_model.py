@@ -1,4 +1,5 @@
 # Libraries we need for this project
+import pickle
 
 import pandas as pd
 import seaborn as sns
@@ -154,3 +155,13 @@ plt.xlabel("Recall")
 plt.ylabel("Model and Feature Set")
 plt.tight_layout()
 plt.show()
+
+models = {
+    'Logistic Regression': lr_model,
+    'Random Forest': rf_model,
+    'Naive Bayes': nb_model,
+}
+
+for name, model in models.items():
+    with open(f"{name}.pkl", "wb") as f:
+        pickle.dump(model, f)

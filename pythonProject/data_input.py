@@ -1,3 +1,61 @@
+import pickle
+import pandas as pd
+from data_preprocess import data_preprocess
+
+
+def make_predictions(age, sex, chestPainType, restingBP, cholesterol, fastingBS, restingECG, maxHR, exerciseAngina,
+                     oldpeak, stSlope):
+    # Load the preprocessed data and selected features from the CSV files
+    processed_data = pd.read_csv('processed_data.csv')
+    corr_features = pd.read_csv('corr_features.csv', header=None).iloc[:, 0].tolist()
+    chi2_features = pd.read_csv('chi2_features.csv', header=None).iloc[:, 0].tolist()
+    rfe_features = pd.read_csv('rfe_features.csv', header=None).iloc[:, 0].tolist()
+
+    # Define the feature set to use for prediction
+    selected_features = processed_data.drop('HeartDisease', axis=1).columns.tolist()
+
+    # Create a dictionary containing the input data
+    input_data = {'Age': [age],
+                  'Sex': [sex],
+                  'ChestPainType': [chestPainType],
+                  'RestingBP': [restingBP],
+                  'Cholesterol': [cholesterol],
+                  'FastingBS': [fastingBS],
+                  'RestingECG': [restingECG],
+                  'MaxHR': [maxHR],
+                  'ExerciseAngina': [exerciseAngina],
+                  'Oldpeak': [oldpeak],
+                  'ST_Slope': [stSlope]}
+
+    # Convert the input data to a pandas DataFrame
+    input_df = pd.DataFrame(input_data)
+
+    # Preprocess the input data using the same techniques used in the model
+    input_df = data_preprocess(input_df)
+
+    # Select the input features based on the selected feature set
+    X = input_df[selected_features]
+
+    # Load the trained model
+    models = {}
+    with open('lr_model.pkl', 'rb') as f:
+        models['Logistic Regression'] = pickle.load(f)
+    with open('rf_model.pkl', 'rb') as f:
+        models['Random Forest'] = pickle.load(f)
+    with open('nb_model.pkl', 'rb') as f:
+        models['Naive Bayes'] = pickle.load(f)
+
+    # Use the model to make predictions on the input data
+    predictions = {}
+    for name, model in models.items():
+        y_pred = model.predict(X)
+        predictions[name] = y_pred[0]
+
+    # Return the predicted outcome
+    return predictions
+
+
+'''
 
 
 print("Welcome to the Heart Disease Risk Assessment Tool.")
@@ -182,3 +240,5 @@ if age >= 50 or sex == "male" or illness == ("yes" or "y") or exercise == ("no" 
     print("\nBased on your risk assessment, we suggest that you see a doctor for further evaluation.")
 else:
     print("\nYour risk of developing heart disease is low, but we still recommend that you maintain a healthy lifestyle and visit a doctor regularly for checkups.")
+
+'''
