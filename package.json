@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "electron": "^24.1.2"
+  },
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Korie Westbrook",
+  "license": "MIT",
+  "description": "Hello World",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comp195/senior-project-spring-2023-medical-ai-disease-diagnostic-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/comp195/senior-project-spring-2023-medical-ai-disease-diagnostic-tool/issues"
+  },
+  "homepage": "https://github.com/comp195/senior-project-spring-2023-medical-ai-disease-diagnostic-tool#readme"
+}
