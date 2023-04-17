@@ -54,7 +54,6 @@ def make_predictions(age, sex, chestPainType, restingBP, cholesterol, fastingBS,
     # Return the predicted outcome
     return predictions
 
-
 '''
 
 
