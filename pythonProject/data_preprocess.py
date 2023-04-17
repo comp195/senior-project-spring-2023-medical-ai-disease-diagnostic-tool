@@ -334,9 +334,10 @@ def data_preprocess(df, use_outliers=True):
     corr_matrix = data_load_encode.corr()  # calculate the correlation matrix
     print("Correlation Matrix:")
     print(corr_matrix)
-    plt.figure(figsize=(20, 20))
+    plt.figure(figsize=(15, 10))
     sns.heatmap(corr_matrix, annot=True, cmap="coolwarm")
     plt.title("Feature Correlations")
+    plt.tight_layout()
     plt.show()
 
     target_corr = corr_matrix["HeartDisease"].drop("HeartDisease", axis=0)
