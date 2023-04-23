@@ -5,13 +5,15 @@ from sklearn.model_selection import train_test_split
 import tensorflow as tf
 from tensorflow import keras
 from pythonProject.data_loader import data_loader
+import matplotlib.pyplot as plt
 
 
 class Data_Model:
     model=None
     data =None
-    bins= [0.0,0.25,0.50,0.75,1.0]
+    bins= [0.0,0.25,0.50,0.75,1.5]
     bin_names =['Not likely', 'Less Likely', 'Likely', 'Highly likely']
+    scores = None
     def __init__(self):
         print('init called')
         data = pd.read_csv("heart.csv")
@@ -22,16 +24,22 @@ class Data_Model:
         x= data_norm.drop('HeartDisease',axis =1)
         y= data['HeartDisease']
         x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2, random_state=42)
+
         model = keras.Sequential([
             keras.layers.Dense(16, activation='relu', input_shape = (11,)),
             keras.layers.Dense(1, activation='sigmoid')
         ])
-        model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
+        model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy', tf.keras.metrics.Precision(), tf.keras.metrics.Recall()])
         history = model.fit(x_train, y_train, epochs=10, batch_size=32, validation_data=(x_test, y_test))
-        score = model.evaluate(x_test, y_test, verbose=0)
+        score = model.evaluate(x_test, y_test)
+
+        print(score)
+        self.scores= score
         print('Test loss:', score[0])
         print('Test accuracy:', score[1])
+
         self.model = model
+
 
 
     def predict_with_model(self, data):
@@ -42,8 +50,12 @@ class Data_Model:
             print('model is None')
             return None
         data.fillna(self.data.median(), inplace=True)
-        data_norm = data.apply(zscore)
-        prediction= self.model.predict(data_norm)
+        for column in data.columns:
+            data[column] = data[column] /self.data[column].abs().max()
+        print(data)
+        prediction= self.model.predict(data)
+
+        print(prediction)
         bin_indices = np.digitize(prediction, self.bins)
         bin_indices = bin_indices.flatten()
         bin_values = [self.bin_names[i - 1] for i in bin_indices]
@@ -63,3 +75,17 @@ class Data_Model:
         data['ST_Slope'] = data['ST_Slope'].map(ST_Slope_mapping)
         data['Sex'] = data['Sex'].map(sex_mapping)
         return data
+    def plot_stat(self):
+        if self.scores == None:
+            return
+        acc = self.scores [1]
+        prec = self.scores[2]
+        reca = self.scores[3]
+        labels = ['Accuracy', 'Precision', 'Recall']
+        values = [acc, prec, reca]
+        fig = plt.figure(figsize=(8, 5))
+        plt.bar(labels, values, color='blue')
+        plt.ylim(0, 1)
+        plt.ylabel('Score')
+        plt.title('Model Evaluation Metrics')
+        plt.show()
