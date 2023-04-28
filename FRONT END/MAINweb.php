@@ -4,6 +4,7 @@
     <title> Heart Disease Diagnostic</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="Main.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
@@ -559,6 +560,71 @@ display(plt)
     </py-script>
 
 
+
+
+
+    <div id="myPlot" style="width:100%;max-width:700px"></div>
+
+    <div class="health-container">
+        <form onsubmit="submitForm()">
+            <div>
+                <label class="health-label" for="cholesterol">Cholesterol Level:</label>
+                <input type="number" class="health-input" id="cholesterol" name="cholesterol" maxlength="3" required>
+                <span id="cholesterol-error" style="color: red;"></span>
+            </div>
+            <div>
+                <label class="health-label" for="blood-pressure">Blood Pressure:</label>
+                <input type="number" class="health-input" id="blood-pressure" name="blood_pressure" maxlength="3" required>
+                <span id="blood-pressure-error" style="color: red;"></span>
+            </div>
+
+            <input type="submit" id="btn-form-1" value="Submit">
+
+        </form>
+
+        <p>Output:</p>
+        <p id='output1'></p>
+    </div>
+
+    <script>
+        // Define an empty data array
+        var data = [];
+
+        // Define layout object for Plotly chart
+        var layout = {
+            xaxis: { title: 'Cholesterol' },
+            yaxis: { title: 'Resting Blood Pressure' },
+            title: 'Resting Blood Pressure vs Cholesterol'
+        };
+
+        // Create an empty scatter plot using Plotly's newPlot method
+        Plotly.newPlot('myPlot', data, layout);
+
+        // Define function to update scatter plot with user input
+        function submitForm() {
+            var cholesterolInput = document.getElementById("cholesterol").value;
+            var bloodPressureInput = document.getElementById("blood-pressure").value;
+
+            // Add user input to the data array
+            data.push({
+                x: [cholesterolInput],
+                y: [bloodPressureInput],
+                mode: 'markers',
+                marker: {
+                    color: 'black',
+                    size: 10,
+                    symbol: 'square'
+                }
+            });
+
+            // Update scatter plot
+            Plotly.newPlot('myPlot', data, layout);
+
+            // Clear form inputs
+            document.getElementById("cholesterol").value = "";
+            document.getElementById("blood-pressure").value = "";
+        }
+    </script>
 </body>
 
 </html>
