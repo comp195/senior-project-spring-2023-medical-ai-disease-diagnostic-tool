@@ -1,23 +1,18 @@
 {
-  "dependencies": {
-    "electron": "^24.1.2"
-  },
-  "name": "my-electron-app",
+  "name": "medical-diagnosis-tool",
   "version": "1.0.0",
-  "main": "index.js",
-  "devDependencies": {},
+  "description": "A web-based tool for predicting heart disease diagnosis",
+  "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron -r esm .",
+    "debugger": "electron -r --inspect esm ."
   },
-  "author": "Korie Westbrook",
-  "license": "MIT",
-  "description": "Hello World",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/comp195/senior-project-spring-2023-medical-ai-disease-diagnostic-tool.git"
+  "dependencies": {
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "python-shell": "^1.0.8"
   },
-  "bugs": {
-    "url": "https://github.com/comp195/senior-project-spring-2023-medical-ai-disease-diagnostic-tool/issues"
-  },
-  "homepage": "https://github.com/comp195/senior-project-spring-2023-medical-ai-disease-diagnostic-tool#readme"
+  "devDependencies": {
+    "electron": "^24.1.2"
+  }
 }
