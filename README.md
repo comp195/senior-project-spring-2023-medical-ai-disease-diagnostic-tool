@@ -40,8 +40,8 @@
 This project is a Medical AI tool that is designed to assist healthcare professionals in diagnosing diseases based on symptoms and test results. The tool uses advanced machine learning algorithms to analyze patient data and provide a diagnosis with a high degree of accuracyMedical AI is a critical tool for disease diagnosis because it can help healthcare professionals make more accurate and faster diagnoses. By using machine learning algorithms, medical AI can analyze vast amounts of medical data, including patient histories, test results, and imaging studies, to identify patterns and make predictions about the presence of specific diseases. This helps to improve the speed and accuracy of diagnoses, which can lead to earlier treatment and better health outcomes for patients. Additionally, medical AI can assist healthcare professionals in making complex diagnoses that would otherwise be challenging to identify. Overall, medical AI has the potential to significantly improve patient outcomes and reduce healthcare costs. 
 
 * ### Senior Project Poster
-
-![SPP](https://user-images.githubusercontent.com/100883284/233871350-adc4c3cb-97df-4da7-8f8d-75ec121a43cb.PNG)
+![Poster 2 Final](https://user-images.githubusercontent.com/100883284/235269641-3c6f4554-1b66-4595-a9eb-590be5527977.PNG)
+![Poster 1 Final](https://user-images.githubusercontent.com/100883284/235269635-939d54ea-4654-4305-86c1-f1e63589a5a4.PNG)
 
 
 ## Key Features
