@@ -6,8 +6,7 @@ import numpy as np
 
 # compare the two
 
-# create a neural network that try to predict heart disease if the have it
-# Create a new window
+# create a neural network that try to predict heart disease if they have it Creates a new window
 
 
 global sex_var , chest_pain_var, age_entry,model,bp_entry,ch_entry,fbs_entry,ecg_var,mhx_entry,exa_var,op_var,sts_var,out_label,name_entry,address_entry
