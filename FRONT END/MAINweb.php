@@ -477,13 +477,10 @@ display(plt)
 
 
 
-<h2>Testing v1 with user input</h2>
+<div id="myPlot" style="width:100%;max-width:700px"></div>
 
-
-<!------------Testing UserInput in Scatt---------------------  -->
-<h2>Enter User Health Information?</h2>
 <div class="health-container">
-    <form onsubmit="return false">
+    <form onsubmit="submitForm()">
         <div>
             <label class="health-label" for="cholesterol">Cholesterol Level:</label>
             <input type="number" class="health-input" id="cholesterol" name="cholesterol" maxlength="3" required>
@@ -495,109 +492,46 @@ display(plt)
             <span id="blood-pressure-error" style="color: red;"></span>
         </div>
 
-        <input onclick="submitForm1()" type="submit" id="btn-form-1" value="submit">
+
+        <input type="submit" id="btn-form-1" value="Submit">
 
     </form>
 
     <p>Output:</p>
     <p id='output1'></p>
 
-    <script>
-        function submitForm1() {
-            var cholesterolInput = document.getElementById("cholesterol");
-            var cholesterolError = document.getElementById("cholesterol-error");
-            var bloodPressureInput = document.getElementById("blood-pressure");
-            var bloodPressureError = document.getElementById("blood-pressure-error");
+    <div id='myPlot' style='width:600px;height:400px;'></div>
+</div>
 
-            validateCholesterol();
-            validateBloodPressure();
-
-            function validateCholesterol() {
-                var cholesterol = cholesterolInput.value;
-                if (cholesterol < 10 || cholesterol > 500) {
-                    cholesterolError.textContent = "Invalid cholesterol level. Cholesterol level must be between 10 and 500.";
-                    cholesterolInput.focus();
-                } else {
-                    cholesterolError.textContent = "";
-                }
-            }
-
-            function validateBloodPressure() {
-                var bloodPressure = bloodPressureInput.value;
-                if (bloodPressure < 50 || bloodPressure > 180) {
-                    bloodPressureError.textContent = "Invalid blood pressure. Blood pressure must be between 50 and 180.";
-                    bloodPressureInput.focus();
-                } else {
-                    bloodPressureError.textContent = "";
-                }
-            }
+<script>
+    // Load heart.csv using Plotly's d3.csv method
+    Plotly.d3.csv('https://raw.githubusercontent.com/KelvinLuk/CSVHEARTDATA/main/heart.csv', function(err, rows){
+        // Define x and y arrays using data from heart.csv
+        var xArray = [], yArray = [];
+        for(var i=0; i<rows.length; i++){
+            xArray.push(rows[i].Cholesterol);
+            yArray.push(rows[i].RestingBP);
         }
-    </script>
 
-    <py-script>
-        import js
-        import pandas as pd
-        import matplotlib.pyplot as plt
-        import seaborn as sns
+        // Define data array and layout object for Plotly chart
+        var data = [{
+            x: xArray,
+            y: yArray,
+            mode: 'markers',
+            marker: {
+                color: rows.map(function(row){ return row.Age; }),  // Set color based on Age
+                colorscale: 'Viridis',  // Set colorscale for color range
+                size: 10  // Set marker size
+            }
+        }];
 
-        def submitHealthInfo():
-            cholesterol = float(js.document.getElementById("cholesterol").value)
-            bloodPressure = float(js.document.getElementById("blood-pressure").value)
-
-            if 10 <= cholesterol <= 500 and 50 <= bloodPressure <= 180:
-                df = pd.DataFrame({'Cholesterol': [cholesterol], 'RestingBP': [bloodPressure], 'Target': [0]})
-                plt.figure()
-                sns.scatterplot(data=df, x="Cholesterol", y="RestingBP", hue="Target")
-                plt.title('Resting Blood Pressure vs Cholesterol')
-                plt.xlabel('Cholesterol')
-                plt.ylabel('Resting Blood Pressure')
-                plt.plot([cholesterol], [bloodPressure], 'ks')  # Add black square for user input
-                plt.savefig("plot.png")
-                js.plotSaved("plot.png")
-                print("working?")
-            else:
-                js.alert("Invalid input. Cholesterol must be between 10 and 500, and blood pressure must be between 50 and 180.")
-    </py-script>
-
-
-
-
-
-    <div id="myPlot" style="width:100%;max-width:700px"></div>
-
-    <div class="health-container">
-        <form onsubmit="submitForm()">
-            <div>
-                <label class="health-label" for="cholesterol">Cholesterol Level:</label>
-                <input type="number" class="health-input" id="cholesterol" name="cholesterol" maxlength="3" required>
-                <span id="cholesterol-error" style="color: red;"></span>
-            </div>
-            <div>
-                <label class="health-label" for="blood-pressure">Blood Pressure:</label>
-                <input type="number" class="health-input" id="blood-pressure" name="blood_pressure" maxlength="3" required>
-                <span id="blood-pressure-error" style="color: red;"></span>
-            </div>
-
-            <input type="submit" id="btn-form-1" value="Submit">
-
-        </form>
-
-        <p>Output:</p>
-        <p id='output1'></p>
-    </div>
-
-    <script>
-        // Define an empty data array
-        var data = [];
-
-        // Define layout object for Plotly chart
         var layout = {
-            xaxis: { title: 'Cholesterol' },
-            yaxis: { title: 'Resting Blood Pressure' },
+            xaxis: {title: 'Cholesterol'},
+            yaxis: {title: 'Resting Blood Pressure'},
             title: 'Resting Blood Pressure vs Cholesterol'
         };
 
-        // Create an empty scatter plot using Plotly's newPlot method
+        // Create scatter plot using Plotly's newPlot method
         Plotly.newPlot('myPlot', data, layout);
 
         // Define function to update scatter plot with user input
@@ -606,25 +540,32 @@ display(plt)
             var bloodPressureInput = document.getElementById("blood-pressure").value;
 
             // Add user input to the data array
-            data.push({
-                x: [cholesterolInput],
-                y: [bloodPressureInput],
-                mode: 'markers',
-                marker: {
-                    color: 'black',
-                    size: 10,
-                    symbol: 'square'
-                }
-            });
+            data[0].x.push(cholesterolInput);
+            data[0].y.push(bloodPressureInput);
+
+            // Add 'You are here' marker to the data array
+            data[0].x.push(cholesterolInput);
+            data[0].y.push(bloodPressureInput);
+            data[0].marker.color.push('black');
+            data[0].marker.size.push(20);
+            data[0].text = ['You are here'];
+            data[0].textposition = 'top center';
+            data[0].mode = 'markers+text';
+            data[0].textfont = {size: 14};
+            data[0].textfont.color = 'white';
 
             // Update scatter plot
-            Plotly.newPlot('myPlot', data, layout);
+            Plotly.update('myPlot', data, layout);
 
             // Clear form inputs
             document.getElementById("cholesterol").value = "";
             document.getElementById("blood-pressure").value = "";
         }
-    </script>
+    });
+</script>
+
+
+
 </body>
 
 </html>

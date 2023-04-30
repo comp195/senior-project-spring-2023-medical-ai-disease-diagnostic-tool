@@ -94,3 +94,83 @@ class Data_Model:
 
 
 <h2>Testing v0</h2>
+
+/////////////////////////////////////////////////////////////////////////////////
+<!------------Testing UserInput in Scatt---------------------  -->
+<h2>Enter User Health Information?</h2>
+<div class="health-container">
+    <form onsubmit="return false">
+        <div>
+            <label class="health-label" for="cholesterol">Cholesterol Level:</label>
+            <input type="number" class="health-input" id="cholesterol" name="cholesterol" maxlength="3" required>
+            <span id="cholesterol-error" style="color: red;"></span>
+        </div>
+        <div>
+            <label class="health-label" for="blood-pressure">Blood Pressure:</label>
+            <input type="number" class="health-input" id="blood-pressure" name="blood_pressure" maxlength="3" required>
+            <span id="blood-pressure-error" style="color: red;"></span>
+        </div>
+
+        <input onclick="submitForm1()" type="submit" id="btn-form-1" value="submit">
+
+    </form>
+
+    <p>Output:</p>
+    <p id='output1'></p>
+
+    <script>
+        function submitForm1() {
+            var cholesterolInput = document.getElementById("cholesterol");
+            var cholesterolError = document.getElementById("cholesterol-error");
+            var bloodPressureInput = document.getElementById("blood-pressure");
+            var bloodPressureError = document.getElementById("blood-pressure-error");
+
+            validateCholesterol();
+            validateBloodPressure();
+
+            function validateCholesterol() {
+                var cholesterol = cholesterolInput.value;
+                if (cholesterol < 10 || cholesterol > 500) {
+                    cholesterolError.textContent = "Invalid cholesterol level. Cholesterol level must be between 10 and 500.";
+                    cholesterolInput.focus();
+                } else {
+                    cholesterolError.textContent = "";
+                }
+            }
+
+            function validateBloodPressure() {
+                var bloodPressure = bloodPressureInput.value;
+                if (bloodPressure < 50 || bloodPressure > 180) {
+                    bloodPressureError.textContent = "Invalid blood pressure. Blood pressure must be between 50 and 180.";
+                    bloodPressureInput.focus();
+                } else {
+                    bloodPressureError.textContent = "";
+                }
+            }
+        }
+    </script>
+
+    <py-script>
+        import js
+        import pandas as pd
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+
+        def submitHealthInfo():
+            cholesterol = float(js.document.getElementById("cholesterol").value)
+            bloodPressure = float(js.document.getElementById("blood-pressure").value)
+
+            if 10 <= cholesterol <= 500 and 50 <= bloodPressure <= 180:
+                df = pd.DataFrame({'Cholesterol': [cholesterol], 'RestingBP': [bloodPressure], 'Target': [0]})
+                plt.figure()
+                sns.scatterplot(data=df, x="Cholesterol", y="RestingBP", hue="Target")
+                plt.title('Resting Blood Pressure vs Cholesterol')
+                plt.xlabel('Cholesterol')
+                plt.ylabel('Resting Blood Pressure')
+                plt.plot([cholesterol], [bloodPressure], 'ks')  # Add black square for user input
+                plt.savefig("plot.png")
+                js.plotSaved("plot.png")
+                print("working?")
+            else:
+                js.alert("Invalid input. Cholesterol must be between 10 and 500, and blood pressure must be between 50 and 180.")
+    </py-script>
