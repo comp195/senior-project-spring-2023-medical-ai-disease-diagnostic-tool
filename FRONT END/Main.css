@@ -1,0 +1,332 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+/* Style for header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1;
+}
+
+/* Style for title */
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Style for navigation */
+nav {
+    flex: 1;
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Style for navigation */
+nav {
+    flex: 1;
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a:hover {
+    color: #e90c0c;
+    text-decoration: none;
+}
+
+
+/* Style for main content */
+main {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1000px;
+    max-height:1000px;
+    margin: 0 auto;
+    background-color: blue;
+}
+
+section {
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+/* Style for user information form */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    flex-basis: 100%;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    flex-basis: 25%;
+}
+
+select {
+    flex-basis: 25%;
+}
+
+/*   additional container */
+
+.health-container {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+.health-label {
+    font-weight: bold;
+}
+
+.health-input {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.health-input[type="radio"],
+.health-input[type="checkbox"] {
+    margin-right: 10px;
+}
+.symptom-container {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.symptom-radio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: center;
+    text-align: center;
+}
+/* Symptom Information container */
+
+
+.symptom-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.symptom-label {
+    font-weight: bold;
+}
+
+.symptom-radio input[type="radio"] {
+    margin-right: 5px;
+    margin-left: 35px;
+
+}
+
+.yes-no-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+
+/* */
+/* adjust the styles as needed */
+
+nav {
+    /* Navigation styles here */
+}
+
+.image-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+    position: absolute;
+    top: 100px; /* adjust this value to position the div below the navigation */
+    left: 0;
+}
+
+.image-block {
+    max-width: 500px;
+    height: 500px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex: 1;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .image-block {
+        max-width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        overflow: hidden;
+        flex: 1;
+    }
+}
+
+
+.box {
+    width: 500px;
+    height: 500px;
+    background-color: #a45656;
+    margin-top: 10px;
+    margin-left: 10px;
+
+}
+
+/* OVERLAY OUTPUT HERE */
+#Outputoverlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(45,0,10,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#Outputleft {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 500px;
+    height: 100%;
+    background-color: white;
+    z-index: 3;
+    overflow-y: scroll;
+}
+
+#left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 400px;
+    background-color: white;
+    z-index: 3;
+    overflow-y: scroll;
+}
+
+.Outputbox {
+    width: 500px;
+    height: 500px;
+    background-color: gray;
+    margin: 0 0 20px 10px; /* set margin to 0 top, 0 right, 20px bottom, and 10px left */
+    padding: 10px;
+}
+
+#Outputcenter {
+    position: absolute;
+    top: 0;
+    left: 400px;
+    right: 0;
+    bottom: 0;
+    background-color: #cbb9b9;
+    z-index: 3;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+#Outputtext{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 50px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+
+.Outputenlarge-box {
+    margin: 50px;
+    padding: 50px;
+    background-color: #0d0d0d;
+}
+
+.Outputred {
+    background-color: red;
+}
+
+.Outputblue {
+    background-color: blue;
+}
+
+.Outputgreen {
+    background-color: green;
+}
+
+.Outputyellow {
+    background-color: yellow;
+}
+
+
