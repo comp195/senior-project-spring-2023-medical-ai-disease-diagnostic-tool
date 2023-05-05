@@ -1,0 +1,17 @@
+2023-05-05 14:32:28,618 This is just a harmless debug message
+2023-05-05 14:32:28,618 This is just an information for you
+2023-05-05 14:32:28,618 OOPS!!!Its a Warning
+2023-05-05 14:32:28,618 Have you try to divide a number by zero
+2023-05-05 14:32:28,618 The Internet is not working....
+2023-05-05 14:32:28,618 {'Age': 44, 'Sex': 'female', 'ChestPainType': 'atypical-angina', 'RestingBP': 120, 'Cholesterol': 130, 'FastingBS': 0, 'RestingECG': 'st-t-wave-abnormality', 'MaxHR': 123, 'ExerciseAngina': 0, 'Oldpeak': 4, 'ST_Slope': 'flat'}
+2023-05-05 14:32:28,620    Age  RestingBP  Cholesterol  FastingBS  MaxHR  Oldpeak  Sex_F  Sex_M  \
+0  0.0        0.0          0.0          0    0.0      0.0      1      0   
+
+   ChestPainType_ASY  ChestPainType_ATA  ChestPainType_NAP  ChestPainType_TA  \
+0                  0                  1                  0                 0   
+
+   RestingECG_LVH  RestingECG_Normal  RestingECG_ST  ExerciseAngina_N  \
+0               0                  0              1                 1   
+
+   ExerciseAngina_Y  ST_Slope_Down  ST_Slope_Flat  ST_Slope_Up  
+0                 0              0              1            0  

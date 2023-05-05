@@ -13,8 +13,8 @@ def make_predictions(age, sex, chestPainType, restingBP, cholesterol, fastingBS,
 
 
     logging.basicConfig(filename="std.log",
-                       format='%(asctime)s %(message)s',
-                       filemode='w')
+                        format='%(asctime)s %(message)s',
+                        filemode='w')
 
     # Let us Create an object
     logger = logging.getLogger()
