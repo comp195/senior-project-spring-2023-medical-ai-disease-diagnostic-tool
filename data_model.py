@@ -22,7 +22,7 @@ feature_sets = {
     'chi_features': chi2_features,  # Top 10 features based on Chi-squared test
     'rfe_features': rfe_features,  # Top 10 features based on Recursive Feature Elimination
 }
-# print(feature_sets)
+# print(feature_sets
 
 highest_scores = {
     'Logistic Regression': 0,
