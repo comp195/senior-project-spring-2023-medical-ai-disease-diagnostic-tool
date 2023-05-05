@@ -131,7 +131,9 @@ form.addEventListener('submit', async (event) => {
             modelResultChart.innerHTML = `
             <svg height="200" width="200">
               <circle cx="100" cy="100" r="90" stroke="#ddd" stroke-width="20" fill="none"/>
-              <circle cx="100" cy="100" r="90" stroke="#33c3f0" stroke-dasharray="${predictionPercentage} ${remainingPercentage}" stroke-width="20" fill="none"/>
+              <circle cx="100" cy="100" r="90" stroke="#33c3f0" stroke-dasharray="565.48" stroke-dashoffset="565.48" stroke-width="20" fill="none">
+                <animate attributeName="stroke-dashoffset" from="565.48" to="${565.48 - predictionPercentage / 100 * 565.48}" dur="2s" fill="freeze" />
+              </circle>
               <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle" font-size="32">${predictionPercentage}%</text>
             </svg>
         `;
