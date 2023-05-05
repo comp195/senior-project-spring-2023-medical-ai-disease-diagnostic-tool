@@ -8,11 +8,9 @@
     "debugger": "electron -r --inspect esm ."
   },
   "dependencies": {
+    "electron": "^24.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "python-shell": "^1.0.8"
-  },
-  "devDependencies": {
-    "electron": "^24.1.2"
   }
 }
