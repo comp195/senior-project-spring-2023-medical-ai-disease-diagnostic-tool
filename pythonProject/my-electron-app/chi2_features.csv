@@ -1,10 +1,10 @@
-Age
-Cholesterol
 FastingBS
+Cholesterol
+MaxHR
 Oldpeak
-Sex_F
-ChestPainType_ASY
+Sex_M
 ChestPainType_ATA
-ExerciseAngina_N
+ChestPainType_NAP
+ExerciseAngina_Y
 ST_Slope_Flat
 ST_Slope_Up
