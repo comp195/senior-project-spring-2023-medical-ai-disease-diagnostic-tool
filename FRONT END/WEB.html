@@ -1,154 +1,41 @@
+
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>replit</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <title> Heart Disease Diagnostic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="WEB.CSS.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+
 </head>
 
 <body>
-<form onsubmit="return false">
-    <label for="name">Name: </label><br>
-    <input type="text" id="name" name="name" value="Test"><br>
-    <select name="countries" id="countries">
-        <option value="America">America</option>
-        <option value="Europe">Europe</option>
-        <option value="Asia">Asia</option>
-    </select>
-    <input onclick="submitForm1()" type="submit" id="btn-form-1" value="submit">
-</form>
-<p>Output:</p>
-<p id='output1'></p>
 
-<form onsubmit="return false">
-    <label for="age">Age: </label><br>
-    <input type="text" id="age" name="age" value="30"><br>
-    <select name="gender" id="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-    </select>
-    <input onclick="submitForm2()" type="submit" id="btn-form-2" value="submit">
-</form>
-<p>Output:</p>
-<p id='output2'></p>
+<py-config>
+    packages = ["matplotlib", "pandas", "seaborn"]
 
-<form onsubmit="return false">
-    <input onclick="submitAllForms()" type="submit" id="btn-final-submit" value="Submit All">
-</form>
+</py-config>
 
-<p>Final Output:</p>
-<p id='output-final'></p>
-
-<script>
-    function submitForm1() {
-        const name = document.getElementById("name").value;
-        const country = document.getElementById("countries").value;
-        document.getElementById("output1").innerHTML = "Name: " + name + "<br>Country: " + country;
-    }
-
-    function submitForm2() {
-        const age = document.getElementById("age").value;
-        const gender = document.getElementById("gender").value;
-        document.getElementById("output2").innerHTML = "Age: " + age + "<br>Gender: " + gender;
-    }
-
-    function submitAllForms() {
-        const name = document.getElementById("name").value;
-        const country = document.getElementById("countries").value;
-        const age = document.getElementById("age").value;
-        const gender = document.getElementById("gender").value;
-
-        document.getElementById("output-final").innerHTML =
-            "Name: " + name + "<br>Country: " + country + "<br>Age: " + age + "<br>Gender: " + gender;
-    }
-</script>
-</body>
-
-
-
-
-<div id="myPlot" style="width:100%;max-width:700px"></div>
-
-<div class="health-container">
-    <form onsubmit="submitForm()">
-        <div>
-            <label class="health-label" for="cholesterol">Cholesterol Level:</label>
-            <input type="number" class="health-input" id="cholesterol" name="cholesterol" maxlength="3" required>
-            <span id="cholesterol-error" style="color: red;"></span>
-        </div>
-        <div>
-            <label class="health-label" for="blood-pressure">Blood Pressure:</label>
-            <input type="number" class="health-input" id="blood-pressure" name="blood_pressure" maxlength="3" required>
-            <span id="blood-pressure-error" style="color: red;"></span>
-        </div>
-
-        <input type="submit" id="btn-form-1" value="Submit">
-
+<header>
+    <h1 class="title">Heart Disease Diagnostic</h1>
+    <nav>
+        <ul>
+            <li><a href="https://github.com/comp195/senior-project-spring-2023-medical-ai-disease-diagnostic-tool">GITHUB Home</a></li>
+            <li><a href="http://localhost:51195/MAINweb.php?">Home</a></li>
+            <
+        </ul>
+    </nav>
+</header>
+<form>
+<h1>
+    <h1>What is this project about?</h1>
+    <p>Website created by Kelvin</p>
+</h1>
+    <P> This project is an advanced medical artificial intelligence (AI) tool designed to facilitate disease diagnosis for healthcare professionals. The tool employs state-of-the-art machine learning algorithms to analyze vast quantities of patient data, including clinical histories, test results, and imaging studies, and to generate diagnoses with an exceptionally high degree of accuracy. Medical AI is a crucial tool for disease diagnosis, given that it can enable healthcare professionals to make more precise and expeditious diagnoses. By utilizing machine learning algorithms, medical AI can sift through extensive medical data sets, identify patterns, and render predictions about the existence of specific illnesses. This significantly enhances the speed and accuracy of diagnoses, which, in turn, leads to improved patient outcomes and earlier treatments, which are of paramount importance. Moreover, medical AI can facilitate the identification of complex diagnoses that might otherwise be challenging to discern. The tool harnesses a brute-force approach to collect data from heart CSVs and user inputs, complemented by the Mayo Clinic disease database. Ultimately, medical AI has the potential to substantially improve patient outcomes while simultaneously reducing healthcare costs.</P>
     </form>
-
-    <p>Output:</p>
-    <p id='output1'></p>
-</div>
-
-<script>
-    // Load heart.csv using Plotly's d3.csv method
-    Plotly.d3.csv('https://raw.githubusercontent.com/KelvinLuk/CSVHEARTDATA/main/heart.csv', function(err, rows){
-        // Define x and y arrays using data from heart.csv
-        var xArray = [], yArray = [];
-        for(var i=0; i<rows.length; i++){
-            xArray.push(rows[i].Cholesterol);
-            yArray.push(rows[i].RestingBP);
-        }
-
-        // Define data array and layout object for Plotly chart
-        var data = [{
-            x: xArray,
-            y: yArray,
-            mode: 'markers',
-            marker: {
-                color: rows.map(function(row){ return row.Age; }),  // Set color based on Age
-                colorscale: 'Viridis',  // Set colorscale for color range
-                size: 10  // Set marker size
-            }
-        }];
-
-        var layout = {
-            xaxis: {title: 'Cholesterol'},
-            yaxis: {title: 'Resting Blood Pressure'},
-            title: 'Resting Blood Pressure vs Cholesterol'
-        };
-
-        // Create scatter plot using Plotly's newPlot method
-        Plotly.newPlot('myPlot', data, layout);
-
-        // Define function to update scatter plot with user input
-        function submitForm() {
-            var cholesterolInput = document.getElementById("cholesterol").value;
-            var bloodPressureInput = document.getElementById("blood-pressure").value;
-
-            // Add user input to the data array
-            data.push({
-                x: [cholesterolInput],
-                y: [bloodPressureInput],
-                mode: 'markers',
-                marker: {
-                    color: 'black',
-                    size: 10,
-                    symbol: 'square'
-                }
-            });
-
-            // Update scatter plot
-            Plotly.newPlot('myPlot', data, layout);
-
-            // Clear form inputs
-            document.getElementById("cholesterol").value = "";
-            document.getElementById("blood-pressure").value = "";
-        }
-    });
-</script>
-
+</body>
 </html>
