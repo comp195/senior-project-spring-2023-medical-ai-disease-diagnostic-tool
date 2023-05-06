@@ -1,58 +1,99 @@
+import logging
 import pickle
 import pandas as pd
 from data_preprocess import data_preprocess
+from data_model import feature_sets
+import sys
+import json
 
 
 def make_predictions(age, sex, chestPainType, restingBP, cholesterol, fastingBS, restingECG, maxHR, exerciseAngina,
                      oldpeak, stSlope):
-    # Load the preprocessed data and selected features from the CSV files
-    processed_data = pd.read_csv('processed_data.csv')
-    corr_features = pd.read_csv('corr_features.csv', header=None).iloc[:, 0].tolist()
-    chi2_features = pd.read_csv('chi2_features.csv', header=None).iloc[:, 0].tolist()
-    rfe_features = pd.read_csv('rfe_features.csv', header=None).iloc[:, 0].tolist()
+    original_data = pd.read_csv('heart.csv')
 
-    # Define the feature set to use for prediction
-    selected_features = processed_data.drop('HeartDisease', axis=1).columns.tolist()
 
+    logging.basicConfig(filename="std.log",
+                        format='%(asctime)s %(message)s',
+                        filemode='w')
+
+    # Let us Create an object
+    logger = logging.getLogger()
+
+    # Now we are going to Set the threshold of logger to DEBUG
+    logger.setLevel(logging.DEBUG)
+
+    # some messages to test
+    logger.debug("This is just a harmless debug message")
+    logger.info("This is just an information for you")
+    logger.warning("OOPS!!!Its a Warning")
+    logger.error("Have you try to divide a number by zero")
+    logger.critical("The Internet is not working....")
     # Create a dictionary containing the input data
-    input_data = {'Age': [age],
-                  'Sex': [sex],
-                  'ChestPainType': [chestPainType],
-                  'RestingBP': [restingBP],
-                  'Cholesterol': [cholesterol],
-                  'FastingBS': [fastingBS],
-                  'RestingECG': [restingECG],
-                  'MaxHR': [maxHR],
-                  'ExerciseAngina': [exerciseAngina],
-                  'Oldpeak': [oldpeak],
-                  'ST_Slope': [stSlope]}
+    original_input_data = {
+        'Age': age,
+        'Sex': sex,
+        'ChestPainType': chestPainType,
+        'RestingBP': restingBP,
+        'Cholesterol': cholesterol,
+        'FastingBS': fastingBS,
+        'RestingECG': restingECG,
+        'MaxHR': maxHR,
+        'ExerciseAngina': exerciseAngina,
+        'Oldpeak': oldpeak,
+        'ST_Slope': stSlope,
+    }
+    logger.info(original_input_data)
 
-    # Convert the input data to a pandas DataFrame
-    input_df = pd.DataFrame(input_data)
+    # Convert the input data to a pandas DataFrame with an explicit index
+    original_input_df = pd.DataFrame([original_input_data])
+
 
     # Preprocess the input data using the same techniques used in the model
-    input_df = data_preprocess(input_df)
+    preprocessed_input_df, fitted_scaler = data_preprocess(original_input_df, mode='prediction')
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        logger.info(preprocessed_input_df)
 
-    # Select the input features based on the selected feature set
-    X = input_df[selected_features]
+    processed_data = pd.read_csv('processed_data.csv')
+    processed_data = processed_data.drop(columns=['HeartDisease'])
+    missing_columns = set(processed_data.columns) - set(preprocessed_input_df.columns)
+    for col in missing_columns:
+        preprocessed_input_df[col] = 0
+
+    preprocessed_input_df = preprocessed_input_df[processed_data.columns]
+
+    #input_df = []
+    #for col in preprocessed_input_df.columns:
+    #    input_df[col] = preprocessed_input_df.at[0, col]
 
     # Load the trained model
     models = {}
-    with open('lr_model.pkl', 'rb') as f:
+    with open('Logistic Regression.pkl', 'rb') as f:
         models['Logistic Regression'] = pickle.load(f)
-    with open('rf_model.pkl', 'rb') as f:
+    with open('Random Forest.pkl', 'rb') as f:
         models['Random Forest'] = pickle.load(f)
-    with open('nb_model.pkl', 'rb') as f:
+    with open('Naive Bayes.pkl', 'rb') as f:
         models['Naive Bayes'] = pickle.load(f)
 
     # Use the model to make predictions on the input data
     predictions = {}
     for name, model in models.items():
-        y_pred = model.predict(X)
-        predictions[name] = y_pred[0]
+        #print(name)
+        #print(model.feature_names_in_)
+        y_pred = model.predict_proba(preprocessed_input_df)
+        predictions[name] = y_pred[0].tolist()
 
     # Return the predicted outcome
     return predictions
+
+
+data_string = sys.argv[1]
+
+#data_string = '{"age":40,"sex":"male","chestPainType":"atypical-angina","restingBP":140,"cholesterol":289,"fastingBS":0,"restingECG":"normal","maxHR":172,"exerciseAngina":0,"oldpeak":0,"stSlope":"up-sloping"}'
+data = json.loads(data_string)
+predictions = make_predictions(**data)
+print(json.dumps(predictions))
+
+
 
 '''
 

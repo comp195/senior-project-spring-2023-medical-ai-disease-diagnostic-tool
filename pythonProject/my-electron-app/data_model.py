@@ -1,6 +1,5 @@
 # Libraries we need for this project
 import pickle
-
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
@@ -23,7 +22,7 @@ feature_sets = {
     'chi_features': chi2_features,  # Top 10 features based on Chi-squared test
     'rfe_features': rfe_features,  # Top 10 features based on Recursive Feature Elimination
 }
-print(feature_sets)
+# print(feature_sets
 
 highest_scores = {
     'Logistic Regression': 0,
@@ -41,6 +40,11 @@ highest_recall = {
     'Random Forest': 0,
     'Naive Bayes': 0,
 }
+
+LR_MODEL_ALL_FEATURES = 0
+RF_ALL_FEATURES = 0
+NB_ALL_FEATURES = 0
+
 # Iterate through the feature sets
 for name, features in feature_sets.items():
     X = processed_data[features]  # Choose the features that belong to the current set of features.
@@ -49,9 +53,10 @@ for name, features in feature_sets.items():
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    lr_model = LogisticRegression()  # Put the logistic regression model into action
-    lr_model.fit(X_train, y_train)  # Use the training data to fit the model.
+    lr_model = LogisticRegression()
 
+    # Put the logistic regression model into action
+    lr_model.fit(X_train, y_train)  # Use the training data to fit the model.
     lr_y_pred = lr_model.predict(X_test)  # Make predictions based on the test results
     lr_accuracy = accuracy_score(y_test, lr_y_pred)  # Figure out how accurate the model's predictions are.
     lr_precision = precision_score(y_test, lr_y_pred)
@@ -71,9 +76,8 @@ for name, features in feature_sets.items():
         highest_recall['Logistic Regression'] = lr_recall
 
     rf_model = RandomForestClassifier()  # Create a random forest classifier model instance
-    rf_model.fit(X_train, y_train)  # Train the random forest classifier model on the training data
-
-    rf_y_pred = rf_model.predict(X_test)  # Use the random forest classifier model to make predictions on the test data
+    rf_model.fit(X_train, y_train)  # Train the random forest model on the training data
+    rf_y_pred = rf_model.predict(X_test)  # Use the random forest model to make predictions on the test data
     rf_accuracy = accuracy_score(y_test, rf_y_pred)  # Calculate the accuracy of the random forest's predictions
     rf_precision = precision_score(y_test, rf_y_pred)
     rf_recall = recall_score(y_test, rf_y_pred)
@@ -113,9 +117,9 @@ for name, features in feature_sets.items():
         highest_recall['Naive Bayes'] = nb_recall
 
     # Print the accuracy, precision and recall scores
-    print(f"Accuracy for {name}(Logistic Regression): {lr_accuracy}, Precision: {lr_precision}, Recall: {lr_recall}")
-    print(f"Accuracy for {name} (Random Forest): {rf_accuracy},  Precision: {rf_precision}, Recall: {rf_recall}")
-    print(f"Accuracy for {name} (Naive Bayes): {nb_accuracy}, Precision: {nb_precision}, Recall: {nb_recall}")
+    # print(f"Accuracy for {name}(Logistic Regression): {lr_accuracy}, Precision: {lr_precision}, Recall: {lr_recall}")
+    # print(f"Accuracy for {name} (Random Forest): {rf_accuracy},  Precision: {rf_precision}, Recall: {rf_recall}")
+    # print(f"Accuracy for {name} (Naive Bayes): {nb_accuracy}, Precision: {nb_precision}, Recall: {nb_recall}")
 
     # Add the highest accuracy, precision score for the current feature set and model to the dictionary
     highest_scores[f"{name}(Logistic Regression)"] = lr_accuracy
@@ -128,40 +132,46 @@ for name, features in feature_sets.items():
     highest_recall[f"{name}(Random Forest)"] = rf_recall
     highest_recall[f"{name}(Naive Bayes"] = nb_recall
 
-highest_accuracy = max(highest_scores, key=highest_scores.get)  # Find the model and feature set with the highest
-#                                                                 accuracy score
-highest_precision_model = max(highest_precision, key=highest_precision.get)
-highest_recall_model = max(highest_recall, key=highest_recall.get)
+    if name == "all_features":
+        LR_MODEL_ALL_FEATURES = lr_model
+        RF_ALL_FEATURES = rf_model
+        NB_ALL_FEATURES = nb_model
 
-# Create a bar plot with the accuracy scores and model/feature set names
-plt.figure(figsize=(10, 8))
-sns.barplot(x=list(highest_scores.values()), y=list(highest_scores.keys()))
-plt.title(f"Highest accuracy: {highest_accuracy}: {highest_scores[highest_accuracy]}")
-plt.xlabel("Accuracy")
-plt.ylabel("Model and Feature Set")
-plt.tight_layout()  # Add tight layout to the plot to prevent overlapping of labels and titles
+if __name__ == "__main__":
+    highest_accuracy = max(highest_scores, key=highest_scores.get)  # Find the model and feature set with the highest
+    #                                                                 accuracy score
+    highest_precision_model = max(highest_precision, key=highest_precision.get)
+    highest_recall_model = max(highest_recall, key=highest_recall.get)
 
-plt.figure(figsize=(10, 8))
-sns.barplot(x=list(highest_precision.values()), y=list(highest_precision.keys()))
-plt.title(f"Highest precision: {highest_precision_model}: {highest_precision[highest_precision_model]}")
-plt.xlabel("Precision")
-plt.ylabel("Model and Feature Set")
-plt.tight_layout()
+    # Create a bar plot with the accuracy scores and model/feature set names
+    plt.figure(figsize=(10, 8))
+    sns.barplot(x=list(highest_scores.values()), y=list(highest_scores.keys()))
+    plt.title(f"Highest accuracy: {highest_accuracy}: {highest_scores[highest_accuracy]}")
+    plt.xlabel("Accuracy")
+    plt.ylabel("Model and Feature Set")
+    plt.tight_layout()  # Add tight layout to the plot to prevent overlapping of labels and titles
 
-plt.figure(figsize=(10, 8))
-sns.barplot(x=list(highest_recall.values()), y=list(highest_recall.keys()))
-plt.title(f"Highest Recall: {highest_recall_model}: {highest_recall[highest_recall_model]}")
-plt.xlabel("Recall")
-plt.ylabel("Model and Feature Set")
-plt.tight_layout()
-plt.show()
+    plt.figure(figsize=(10, 8))
+    sns.barplot(x=list(highest_precision.values()), y=list(highest_precision.keys()))
+    plt.title(f"Highest precision: {highest_precision_model}: {highest_precision[highest_precision_model]}")
+    plt.xlabel("Precision")
+    plt.ylabel("Model and Feature Set")
+    plt.tight_layout()
 
-models = {
-    'Logistic Regression': lr_model,
-    'Random Forest': rf_model,
-    'Naive Bayes': nb_model,
-}
+    plt.figure(figsize=(10, 8))
+    sns.barplot(x=list(highest_recall.values()), y=list(highest_recall.keys()))
+    plt.title(f"Highest Recall: {highest_recall_model}: {highest_recall[highest_recall_model]}")
+    plt.xlabel("Recall")
+    plt.ylabel("Model and Feature Set")
+    plt.tight_layout()
+    plt.show()
 
-for name, model in models.items():
-    with open(f"{name}.pkl", "wb") as f:
-        pickle.dump(model, f)
+    models = {
+        'Logistic Regression': LR_MODEL_ALL_FEATURES,
+        'Random Forest': RF_ALL_FEATURES,
+        'Naive Bayes': NB_ALL_FEATURES,
+    }
+
+    for name, model in models.items():
+        with open(f"{name}.pkl", "wb") as f:
+            pickle.dump(model, f)
