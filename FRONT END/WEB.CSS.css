@@ -329,5 +329,38 @@ nav {
 .Outputyellow {
     background-color: yellow;
 }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+h1 {
+    margin: 0;
+}
 
+#main-content {
+    margin: 50px auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+input, textarea {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 500px}
