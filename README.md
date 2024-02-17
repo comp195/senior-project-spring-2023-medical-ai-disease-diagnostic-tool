@@ -111,7 +111,6 @@ Feedback gathered during testing will be analyzed to identify common themes and 
 
 ## Requirements
 
-* Microsoft Azure account
 * Python 3+
 * TensorFlow
 * Tkinter
